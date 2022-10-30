@@ -1,0 +1,144 @@
+<!--postAds.ejs-->
+<div style="background-color: #BCCEF8;">
+    <div class="card">
+        <div class="card-header">
+            <ul class="nav nav-tabs card-header-tabs">
+                <li class="nav-item">
+                    <a class="nav-link active" href="#">Post Job</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/ads/postTimeslot">Post Availability</a>
+                </li>
+            </ul>
+        </div>
+        <div class="card-body">
+            <form id="formData" name="formData" action="/ads/postAds" method="post" enctype='multipart/form-data' style="padding: 1em 1em;">
+                <input type="hidden" name="_csrf" id="_csrf" value="<%- _csrf %>" />
+                <div class="row">
+                    <div class="form-group col-md-6">
+                        <label for="exampleFormControlSelect1">Job Type</label>
+                        <select class="form-control" id="jobType" name="jobType" required>
+                            <option selected disabled value="" >Select dropdown</option>
+                            <option value="HouseKeeper">HouseKeeper</option>
+                            <option value="Medical Care">Medical Care</option>
+                            <option value="Elderly Care">Elderly Care</option>
+                            <option value="Child Care">Child Care</option>
+                            <option value="Personal Care">Personal Care</option>
+                        </select>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="exampleFormControlInput1">Title</label>
+                        <input class="form-control" id="title" name="title" placeholder="What are you looking for?" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="exampleFormControlSelect1">Location</label>
+                    <select class="form-control" id="location" name="location" required>
+                        <option selected disabled value="" >Select dropdown</option>
+                        <option value="Central">Central</option>
+                        <option value="Cheung Chau">Cheung Chau</option>
+                        <option value="Kowloon City">Kowloon City</option>
+                        <option value="Kwai Tsing">Kwai Tsing</option>
+                        <option value="Kwun Tong">Kwun Tong</option>
+                        <option value="Lantau Island">Lantau Island</option>
+                        <option value="Sai Kung">Sai Kung</option>
+                        <option value="Sham Shui Po">Sham Shui Po</option>
+                        <option value="Sha Tin">Sha Tin</option>
+                        <option value="Tai Po">Tai Po</option>
+                        <option value="Tsuen Wan">Tsuen Wan</option>
+                        <option value="Tuen Mun">Tuen Mun</option>
+                        <option value="Wan Chai">Wan Chai</option>
+                        <option value="Wong Tai Sin">Wong Tai Sin</option>
+                        <option value="Yau Tsim Mong">Yau Tsim Mong</option>
+                        <option value="Yuen Long">Yuen Long</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="exampleFormControlTextarea1">Description</label>
+                    <textarea class="form-control" id="description" name="description" rows="2" placeholder="Responsibilities, Requirements of the Job..." required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="exampleFormControlSelect2">Contract Type</label>
+                    <select class="form-control" size="2" id="contract" name="contract" required>
+                        <option value="Part Time">Part Time</option>
+                        <option value="Full Time">Full Time</option>
+                        <option value="Temporary">Temporary</option>
+                        <option value="Freelance">Freelance</option>
+                        <option value="Contract">Contract</option>
+                    </select>
+                </div>
+                <div class="row">
+                    <div class="form-group col-md-6">
+                        <label for="exampleFormControlInput1">Salary (per Hour / Month)</label>
+                        <input class="form-control" id="salary" name="salary" type="number" required>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="exampleFormControlInput1">Contact Information</label>
+                        <input class="form-control" id="contact" name="contact" placeholder="Phone number/Email" required>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-md-6">
+                        <label for="exampleFormControlInput1">Remarks</label>
+                        <input class="form-control" id="remarks" name="remarks" placeholder="Optional">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="exampleFormControlInput1">Ads Type</label>
+                        <input class="form-control" type="text" placeholder="Job" id="adType" name="adType" value="Job" readonly>
+                    </div>
+                </div>
+                <div class="form-group" style="padding-bottom: 2em;">
+                    <label for="exampleFormControlFile1">Picture Related</label>
+                        <div class="custom-file">
+                            <label for="img">Choose a photo: </label>
+                            <input type="file" id="img" name="img" accept="image/*" required>
+                        </div>
+                </div>
+                <button type="submit" class="btn btn-primary" style="float: right;">Submit</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- <script>
+    const form = document.getElementById("formData");
+    form.addEventListener("submit", submitForm);
+
+    function submitForm(e) {
+    e.preventDefault();
+    const _csrf = document.getElementById("_csrf");
+    const location = document.getElementById("location");
+    const jobType = document.getElementById("jobType");
+    const title = document.getElementById("title");
+    const description = document.getElementById("description");
+    const contract = document.getElementById("contract");
+    const salary = document.getElementById("salary");
+    const contact = document.getElementById("contact");
+    const adType = document.getElementById("adType");
+    const remarks = document.getElementById("remarks");
+    const files = document.getElementById("img");
+    const formData = new FormData();
+    formData.append("_csrf", _csrf.value);
+    formData.append("jobType", jobType.value);
+    formData.append("location", location.value);
+    formData.append("title", title.value);
+    formData.append("description", description.value);
+    formData.append("contract", contract.value);
+    formData.append("salary", salary.value);
+    formData.append("contact", contact.value);
+    formData.append("adType", adType.value);
+    formData.append("remarks", remarks.value);
+    for(let i =0; i < files.files.length; i++) {
+            formData.append("files", files.files[i]);
+    }
+    fetch("http://localhost:1337/ads/postAds", {
+        method: 'POST',
+        body: formData,
+        headers: {
+            "Content-Type": "multipart/form-data"
+        }
+    })
+        .then((res) => console.log(res))
+        .catch((err) => ("Error occured", err));
+}
+</script> -->

@@ -1,0 +1,53 @@
+<div class="container" style="width: 60%; padding-top: 4em;">
+    <div class="card">
+        <div class="card-header text-white bg-dark">
+            <h4 class="card-title">Advertisement Details</h4>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <!-- pic -->
+                    <img class="col" src="<%= img.url %>" style="display: none" onload="this.style.display=''" onerror="tryAgain(this)"/>
+                </div>
+                <div class="col-md-2 text-right">
+                    <h5 class="card-title">Ad Title: </h5>
+                    <p class="card-text">Job Type: </p>
+                    <p class="card-text">Description: </p>
+                    <p class="card-text">Location: </p>
+                    <p class="card-text">Contact: </p>
+                    <p class="card-text">Salary: </p>
+                    <p class="card-text">Remarks: </p>
+                </div>
+                <div class="col-md-4">
+                    <h5 class="card-title"><%= ad.title %></h5>
+                    <p class="card-text"><%= ad.jobType %></p>
+                    <p class="card-text"><%= ad.description %></p>
+                    <p class="card-text"><%= ad.location %> </p>
+                    <p class="card-text"><%= ad.contact %></p>
+                    <p class="card-text"><%= ad.salary %> per Hour / Month</p>
+                    <p class="card-text"><%= ad.remarks %></p>
+                </div>
+            </div>
+        </div>
+        <div class="card-footer bg-transparent border-success text-center">
+            <p> Application Status: </p>
+            <a href="#" class="btn btn-info"><%= ad.adStatus %></a>
+        </div>
+        <div class="card-footer text-muted text-center">
+            <p> Last Updated At: <%= ad.updatedAt %></p>
+        </div>
+    </div>
+</div>
+
+<script>
+    function tryAgain(e) 
+    {
+    setTimeout(reloadImg, 1000, e);
+    }
+
+    function reloadImg(e)
+    {
+    var source = e.src;
+    e.src = source;
+    }
+</script>
