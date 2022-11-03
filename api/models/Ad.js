@@ -15,7 +15,8 @@ module.exports = {
     //for Availability Caretakers
 
     availableTimeslot: {
-      type: "string",
+      type: 'json', 
+      columnType: 'array',
     },
 
     //for Jobs Ads

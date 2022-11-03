@@ -1,7 +1,7 @@
 <!--postAds.ejs-->
 <div style="background-color: #BCCEF8;">
     <div class="card">
-        <div class="card-header">
+        <div class="card-header" style="background-color: #e3f2fd;">
             <ul class="nav nav-tabs card-header-tabs">
                 <li class="nav-item">
                     <a class="nav-link active" href="#">Post Job</a>
@@ -99,46 +99,3 @@
         </div>
     </div>
 </div>
-
-<!-- <script>
-    const form = document.getElementById("formData");
-    form.addEventListener("submit", submitForm);
-
-    function submitForm(e) {
-    e.preventDefault();
-    const _csrf = document.getElementById("_csrf");
-    const location = document.getElementById("location");
-    const jobType = document.getElementById("jobType");
-    const title = document.getElementById("title");
-    const description = document.getElementById("description");
-    const contract = document.getElementById("contract");
-    const salary = document.getElementById("salary");
-    const contact = document.getElementById("contact");
-    const adType = document.getElementById("adType");
-    const remarks = document.getElementById("remarks");
-    const files = document.getElementById("img");
-    const formData = new FormData();
-    formData.append("_csrf", _csrf.value);
-    formData.append("jobType", jobType.value);
-    formData.append("location", location.value);
-    formData.append("title", title.value);
-    formData.append("description", description.value);
-    formData.append("contract", contract.value);
-    formData.append("salary", salary.value);
-    formData.append("contact", contact.value);
-    formData.append("adType", adType.value);
-    formData.append("remarks", remarks.value);
-    for(let i =0; i < files.files.length; i++) {
-            formData.append("files", files.files[i]);
-    }
-    fetch("http://localhost:1337/ads/postAds", {
-        method: 'POST',
-        body: formData,
-        headers: {
-            "Content-Type": "multipart/form-data"
-        }
-    })
-        .then((res) => console.log(res))
-        .catch((err) => ("Error occured", err));
-}
-</script> -->

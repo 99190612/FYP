@@ -18,10 +18,14 @@ module.exports.routes = {
   //==============New added================
   'GET /ads/postAds': 'AdController.postAds',
   'POST /ads/postAds': 'AdController.postAds',
-  // -------------
+  // ---------------------
   'GET /ads/postTimeslot': 'AdController.postTimeslot',
+  'POST /ads/postTimeslot': 'AdController.postTimeslot',
 
   'GET /ads/adDetails/:id': 'AdController.details',
+  'GET /allApplication': 'AdController.show',
+
+  // ---------------------
 
   'GET /faq':                { action:   'view-faq' },
   'GET /legal/terms':        { action:   'legal/view-terms' },

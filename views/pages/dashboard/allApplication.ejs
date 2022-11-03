@@ -1,0 +1,26 @@
+<div class="middle-container">
+    <!-- admin list table -->
+    <table class="table table-hover table-striped">
+        <thead class="thead-dark">
+            <tr>
+                <th title="id">ID</th>
+                <th title="title">Title</th>
+                <th title="adType">AD Type</th>
+                <th title="adStatus">Application Status</th>
+                <th title="lastUpdate">Last Updated</th>
+                <th title="link">Ad Details</th>
+            </tr>
+        </thead>
+    <% ads.forEach( function(ad) { %>
+    <tr>
+        <td><%= ad.id %></td>
+        <td><%= ad.title %></td>
+        <td><%= ad.adType %></td>
+        <td><a href="#" class="btn btn-secondary"><%= ad.adStatus %></a></td>
+        <td><%= ad.updatedAt %></td>
+        <td><a href="/ads/adDetails/<%= ad.id %>" class="btn btn-info">Details</a></td>
+    </tr>
+
+    <% }); %>
+    </table>
+</div>

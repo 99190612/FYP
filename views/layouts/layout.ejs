@@ -45,15 +45,15 @@
   </head>
   <body>
     <div purpose="page-wrap">
-      <header class="navbar navbar-expand-sm navbar-light bg-light flex-column flex-md-row justify-content-between" purpose="page-header">
+      <header class="navbar navbar-expand-sm navbar-light bg-light flex-column flex-md-row justify-content-between" purpose="page-header ">
         <div class="navbar-nav">
-          <a style="cursor: pointer; padding-right: 2em;" class="navbar-brand mr-0" href="/"><img style="height: 35px;" class="logo" alt="NEW_APP_NAME logo" src="/images/logo.jpg"/></a>
+          <a style="cursor: pointer; padding-right: 2em;" class="navbar-brand mr-0" href="/"><img style="height: 35px;" class="logo" alt="HomeCare logo" src="/images/logo.jpg"/></a>
         <!-- LOGGED-IN NAVIGATION -->
         <% if(me) { %>
           <a class="nav-item nav-link" href="/">Available Canadidate</a>
           <a class="nav-item nav-link" href="/ads/postAds">Post Job</a>
           <a class="nav-item nav-link" href="/">Search</a>
-          <a class="nav-item nav-link" href="/">All Applications</a>
+          <a class="nav-item nav-link" href="/allApplication">All Applications</a>
         </div>
         <div class="navbar-nav flex-row">
           <a class="nav-item nav-link ml-2 ml-md-0 mr-2 mr-md-0" href="/contact">Help</a>
@@ -69,8 +69,8 @@
           <a class="nav-item nav-link ml-2 mr-2 d-block d-sm-none" href="/account">Account Settings</a>
           <a class="nav-item nav-link ml-2 mr-2 d-block d-sm-none" href="/logout">Sign out</a>
           <% } else { %>
-          <!-- LOGGED-OUT NAVIGATION -->
-          <a class="nav-item nav-link ml-2 ml-md-0 mr-2" href="/faq">FAQ</a>
+              <!-- LOGGED-OUT NAVIGATION -->
+          <a class="nav-item nav-link ml-2 ml-md-0 mr-2" style="padding-left: 60em;" href="/faq">FAQ</a>
           <a class="nav-item nav-link ml-2 ml-md-0 mr-2" href="/login">Log in</a>
           <!-- Only in desktop nav -->
           <div class="form-inline d-none ml-2 d-md-block" >
@@ -78,6 +78,8 @@
           </div>
           <!-- Only in mobile nav -->
           <a class="nav-item nav-link text-info ml-2 d-block d-md-none" href="/signup">Sign up</a>
+            
+          
           <% } %>
         </div>
       </header>
