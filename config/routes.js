@@ -19,11 +19,14 @@ module.exports.routes = {
   'GET /ads/postAds': 'AdController.postAds',
   'POST /ads/postAds': 'AdController.postAds',
   // ---------------------
-  'GET /ads/postTimeslot': 'AdController.postTimeslot',
-  'POST /ads/postTimeslot': 'AdController.postTimeslot',
+  'GET /ads/postAvailability': 'AdController.postAvailability',
+  'POST /ads/postAvailability': 'AdController.postAvailability',
 
   'GET /ads/adDetails/:id': 'AdController.details',
   'GET /allApplication': 'AdController.show',
+
+  'GET /viewJob': 'AdController.displayJob',
+  'GET /viewCanadidate': 'AdController.displayCanadidate',
 
   // ---------------------
 

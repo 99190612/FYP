@@ -3,12 +3,6 @@
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.0/moment.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.39.0/js/tempusdominus-bootstrap-4.min.js" integrity="sha512-k6/Bkb8Fxf/c1Tkyl39yJwcOZ1P4cRrJu77p83zJjN2Z55prbFHxPs9vN7q3l3+tSMGPDdoH51AEU8Vgo1cgAA==" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.39.0/css/tempusdominus-bootstrap-4.min.css" integrity="sha512-3JRrEUwaCkFUBLK1N8HehwQgu8e23jTH4np5NHOmQOobuC4ROQxFwFgBLTnhcnQRMs84muMh0PnnwXlPq5MGjg==" crossorigin="anonymous" />
-    <!-- old -->
-    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/jquery.validate.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.js"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.css" rel="stylesheet"/> -->
-    
 </head>
 <body>
     <div class="card">
@@ -18,13 +12,13 @@
                     <a class="nav-link" href="/ads/postAds">Post Job</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active" href="/ads/postTimeslot">Post Availability</a>
+                    <a class="nav-link active" href="/ads/postAvailability">Post Availability</a>
                 </li>
             </ul>
         </div>
         <div class="card-body">
         <!-- Form start -->
-        <form name="formData" id="formData" method="POST" action="/ads/postTimeslot" class="form-separated" enctype='multipart/form-data' style="padding: 1em 1em;">
+        <form name="formData" id="formData" method="POST" action="/ads/postAvailability" class="form-separated" enctype='multipart/form-data' style="padding: 1em 1em;">
             <input type="hidden" name="_csrf" id="_csrf" value="<%- _csrf %>" />
             <div>
             <div class="row">
@@ -125,7 +119,7 @@
                                         </thead>
                                             <tr>
                                                 <td>
-                                                    <input id="date0" name="dateField[0]"  class="form-control" type="datetime-local"/>
+                                                    <input id="date0" name="availableTimeslot"  class="form-control" type="datetime-local"/>
                                                 </td>
                                                 <td>
                                                     <button type="button" class="delete btn btn-danger">Delete</button>
@@ -154,45 +148,45 @@
                         <tbody>
                         <tr>
                             <td>Morning</td>
-                            <td><input type="checkbox"  name="availableTimeslot[morning][]" value="MON"></td>
-                            <td><input type="checkbox"  name="availableTimeslot[morning][]" value="TUE"></td>
-                            <td><input type="checkbox"  name="availableTimeslot[morning][]" value="WED"></td>
-                            <td><input type="checkbox"  name="availableTimeslot[morning][]" value="THU"></td>
-                            <td><input type="checkbox"  name="availableTimeslot[morning][]" value="FRI"></td>
-                            <td><input type="checkbox"  name="availableTimeslot[morning][]" value="SAT"></td>
-                            <td><input type="checkbox"  name="availableTimeslot[morning][]" value="SUN"></td>
+                            <td><input type="checkbox"  name="availableTimeslot" value="[morning][MON]"></td>
+                            <td><input type="checkbox"  name="availableTimeslot" value="[morning][TUE]"></td>
+                            <td><input type="checkbox"  name="availableTimeslot" value="[morning][WED]"></td>
+                            <td><input type="checkbox"  name="availableTimeslot" value="[morning][THU]"></td>
+                            <td><input type="checkbox"  name="availableTimeslot" value="[morning][FRI]"></td>
+                            <td><input type="checkbox"  name="availableTimeslot" value="[morning][SAT]"></td>
+                            <td><input type="checkbox"  name="availableTimeslot" value="[morning][SUN]"></td>
                 
                         </tr>
                         <tr>
                             <td>Afternoon</td>
-                            <td><input type="checkbox"  name="availableTimeslot[afternoon][]" value="MON"></td>
-                            <td><input type="checkbox"  name="availableTimeslot[afternoon][]" value="TUE"></td>
-                            <td><input type="checkbox"  name="availableTimeslot[afternoon][]" value="WED"></td>
-                            <td><input type="checkbox"  name="availableTimeslot[afternoon][]" value="THU"></td>
-                            <td><input type="checkbox"  name="availableTimeslot[afternoon][]" value="FRI"></td>
-                            <td><input type="checkbox"  name="availableTimeslot[afternoon][]" value="SAT"></td>
-                            <td><input type="checkbox"  name="availableTimeslot[afternoon][]" value="SUN"></td>
+                            <td><input type="checkbox"  name="availableTimeslot" value="[afternoon][MON]"></td>
+                            <td><input type="checkbox"  name="availableTimeslot" value="[afternoon][TUE]"></td>
+                            <td><input type="checkbox"  name="availableTimeslot" value="[afternoon][WED]"></td>
+                            <td><input type="checkbox"  name="availableTimeslot" value="[afternoon][THU]"></td>
+                            <td><input type="checkbox"  name="availableTimeslot" value="[afternoon][FRI]"></td>
+                            <td><input type="checkbox"  name="availableTimeslot" value="[afternoon][SAT]"></td>
+                            <td><input type="checkbox"  name="availableTimeslot" value="[afternoon][SUN]"></td>
 
                         </tr>
                         <tr>
                             <td>Evening</td>
-                            <td><input type="checkbox"  name="availableTimeslot[evening][]" value="MON"></td>
-                            <td><input type="checkbox"  name="availableTimeslot[evening][]" value="TUE"></td>
-                            <td><input type="checkbox"  name="availableTimeslot[evening][]" value="WED"></td>
-                            <td><input type="checkbox"  name="availableTimeslot[evening][]" value="THU"></td>
-                            <td><input type="checkbox"  name="availableTimeslot[evening][]" value="FRI"></td>
-                            <td><input type="checkbox"  name="availableTimeslot[evening][]" value="SAT"></td>
-                            <td><input type="checkbox"  name="availableTimeslot[evening][]" value="SUN"></td>
+                            <td><input type="checkbox"  name="availableTimeslot" value="[evening][MON]"></td>
+                            <td><input type="checkbox"  name="availableTimeslot" value="[evening][TUE]"></td>
+                            <td><input type="checkbox"  name="availableTimeslot" value="[evening][WED]"></td>
+                            <td><input type="checkbox"  name="availableTimeslot" value="[evening][THU]"></td>
+                            <td><input type="checkbox"  name="availableTimeslot" value="[evening][FRI]"></td>
+                            <td><input type="checkbox"  name="availableTimeslot" value="[evening][SAT]"></td>
+                            <td><input type="checkbox"  name="availableTimeslot" value="[evening][SUN]"></td>
                         </tr>
                         <tr>
                             <td>Midnight</td>
-                            <td><input type="checkbox"  name="availableTimeslot[midnight][]" value="MON"></td>
-                            <td><input type="checkbox"  name="availableTimeslot[midnight][]" value="TUE"></td>
-                            <td><input type="checkbox"  name="availableTimeslot[midnight][]" value="WED"></td>
-                            <td><input type="checkbox"  name="availableTimeslot[midnight][]" value="THU"></td>
-                            <td><input type="checkbox"  name="availableTimeslot[midnight][]" value="FRI"></td>
-                            <td><input type="checkbox"  name="availableTimeslot[midnight][]" value="SAT"></td>
-                            <td><input type="checkbox"  name="availableTimeslot[midnight][]" value="SUN"></td>
+                            <td><input type="checkbox"  name="availableTimeslot" value="[midnight][MON]"></td>
+                            <td><input type="checkbox"  name="availableTimeslot" value="[midnight][TUE]"></td>
+                            <td><input type="checkbox"  name="availableTimeslot" value="[midnight][WED]"></td>
+                            <td><input type="checkbox"  name="availableTimeslot" value="[midnight][THU]"></td>
+                            <td><input type="checkbox"  name="availableTimeslot" value="[midnight][FRI]"></td>
+                            <td><input type="checkbox"  name="availableTimeslot" value="[midnight][SAT]"></td>
+                            <td><input type="checkbox"  name="availableTimeslot" value="[midnight][SUN]"></td>
                         </tr>
                         </tbody>
                     </table>
@@ -226,7 +220,7 @@ var count=1;
     // Append table with add row form on add new button click
     $(".add_details_button").click(function(){    //button click to add row
         var row = '<tr>' +
-            '<td><input id="date'+count+'" name="dateField['+count+']"  class="form-control" type="datetime-local" required/></td>' + '<td><button type="button" class="delete btn btn-danger">Delete</button></td>' + '</tr>';
+            '<td><input id="date'+count+'" name="availableTimeslot"  class="form-control" type="datetime-local" required/></td>' + '<td><button type="button" class="delete btn btn-danger">Delete</button></td>' + '</tr>';
             count=count+1;
         $("#details").append(row);
 });

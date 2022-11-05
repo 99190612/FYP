@@ -41,8 +41,8 @@ module.exports = {
     return res.redirect("/ads/adDetails/" + ad.id);
     },
 
-    postTimeslot: async function(req, res){
-        if (req.method == "GET") return res.view('pages/ads/postTimeslot');
+    postAvailability: async function(req, res){
+        if (req.method == "GET") return res.view('pages/ads/postAvailability');
         var ad = await Ad.create(req.allParams()).fetch();
         res.setTimeout(0);
         req.file('img')
@@ -79,11 +79,9 @@ module.exports = {
         if (req.method == "GET") {
             await delay(300);
             var thatAd = await Ad.findOne(req.params.id);
-            console.log("find that Ad? ", thatAd);
             var thatFile = await Files.findOne({
                 id : thatAd.application_pic,
             });
-            console.log('find that File? ', thatFile);
             if(!thatFile) { throw 'FileNotFound'; }
 
             if (!thatAd) return res.notFound();
@@ -100,6 +98,36 @@ module.exports = {
         });
         thoseads.forEach((item)  =>  item.updatedAt = new Date(item.updatedAt).toLocaleString());
         return res.view("pages/dashboard/allApplication", { ads: thoseads });
+    },
+
+    displayJob: async function(req,res){
+        var thoseads = await Ad.find({
+            where: {
+                adType: 'Job',
+            },
+        });
+        let picArr = [];
+        thoseads.forEach((item) => picArr.push(item.application_pic));
+        var thoseFile = await Files.find({
+            where: picArr,
+            sort: 'id',
+        });
+        return res.view("pages/dashboard/viewJob", { ads: thoseads, imgs: thoseFile});
+    },
+
+    displayCanadidate: async function(req,res){
+        var thoseads = await Ad.find({
+            where: {
+                adType: 'Availability',
+            },
+        });
+        let picArr = [];
+        thoseads.forEach((item) => picArr.push(item.application_pic));
+        var thoseFile = await Files.find({
+            where: picArr,
+            sort: 'id',
+        });
+        return res.view("pages/dashboard/viewCanadidate", { ads: thoseads, imgs: thoseFile});
     },
 
 };

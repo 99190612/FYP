@@ -19,6 +19,11 @@ module.exports = {
       columnType: 'array',
     },
 
+    requestedTimeslot: {
+      type: 'json', 
+      columnType: 'array',
+    },
+
     //for Jobs Ads
     adType: {
       type: "string",
@@ -66,7 +71,7 @@ module.exports = {
     application_pic: {
       type: "number",
     },
-
+    
     //  ╔═╗╔╦╗╔╗ ╔═╗╔╦╗╔═╗
     //  ║╣ ║║║╠╩╗║╣  ║║╚═╗
     //  ╚═╝╩ ╩╚═╝╚═╝═╩╝╚═╝

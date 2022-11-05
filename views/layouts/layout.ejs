@@ -50,7 +50,13 @@
           <a style="cursor: pointer; padding-right: 2em;" class="navbar-brand mr-0" href="/"><img style="height: 35px;" class="logo" alt="HomeCare logo" src="/images/logo.jpg"/></a>
         <!-- LOGGED-IN NAVIGATION -->
         <% if(me) { %>
-          <a class="nav-item nav-link" href="/">Available Canadidate</a>
+          <div class="nav-item dropdown d-none d-sm-block">
+            <a class="nav-link dropdown-toggle" id="header-account-menu-link" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">View</a>
+            <div class="dropdown-menu" aria-labelledby="header-account-menu-link">
+              <a class="dropdown-item" href="/viewJob">Jobs</a>
+              <a class="dropdown-item" href="/viewCanadidate">Canadidates</a>
+            </div>
+          </div>
           <a class="nav-item nav-link" href="/ads/postAds">Post Job</a>
           <a class="nav-item nav-link" href="/">Search</a>
           <a class="nav-item nav-link" href="/allApplication">All Applications</a>
@@ -110,7 +116,7 @@
           <small class="nav-item d-inline-block"><a class="nav-link text-info px-1 px-sm-3" href="/logout">Sign out</a></small>
           <% } %>
         </div>
-        <small purpose="footer-copy">Copyright &copy; <%= sails.config.custom.platformCopyrightYear %> <a target="_blank" href="NEW_APP_COMPANY_ABOUT_HREF">NEW_APP_COMPANY_NAME</a>. <br class="d-block d-sm-none"/>All rights reserved.</small>
+        <small purpose="footer-copy">Copyright &copy; <%= sails.config.custom.platformCopyrightYear %> <a target="_blank" href="/">HOMECARE</a>. <br class="d-block d-sm-none"/>All rights reserved.</small>
       </footer>
     </div>
 
