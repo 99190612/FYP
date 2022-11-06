@@ -1,146 +1,159 @@
-<div class="container" style="width: 60%; padding-top: 4em;">
-    <div class="card">
-        <div class="card-header text-white bg-dark">
-            <h4 class="card-title">Advertisement Details</h4>
-        </div>
-        <div class="card-body">
-            <div class="row">
-                <a href="/" class="btn btn-danger" style="margin-left: auto;" role="button">Close X</a>
+<head>
+    
+</head>
+<body onload="loadAvailability('<%= ad.scheduleOptions %>','<%= ad.availableTimeslot %>','<%= ad.requestedTimeslot %>')">
+    <div class="container" style="width: 60%; padding-top: 4em;">
+        <div class="card">
+            <div class="card-header text-white bg-dark">
+                <h4 class="card-title">Advertisement Details</h4>
             </div>
-            <div class="row">
-                <div class="col-md-6">
-                    <!-- pic -->
-                    <img class="col" src="<%= img.url %>" 
-                    style="display: none; display: none; width: 100%; height: 15vw; object-fit: cover;" onload="this.style.display='';document.getElementById('loading').style.display='none'" onerror="tryAgain(this)"/>
-                    <br>
-                    <br>
-                    <p id="loading" class="text-center">Loading Image...</p>
-                    <div class="card" style="width: 100%;">
-                        <div class="card-body">
-                            <!-- <h5 class="card-title">Time Available</h5> -->
-                            <h6 class="card-subtitle mb-2 text-muted">Personal Details</h6>
-                            <div class="card-text">
-                                <ul class="list-group list-group-flush">
-                                    <li class="list-group-item">User Name:</li>
-                                    <li class="list-group-item">Email:</li>
-                                </ul>
+            <div class="card-body">
+                <div class="row">
+                    <button class="btn btn-danger" style="margin-left: auto;" onclick="history.back()">Close X</button>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <!-- pic -->
+                        <img class="col" src="<%= img.url %>" 
+                        style="display: none; display: none; width: 100%; height: 25vw; object-fit: cover;padding-bottom: 1em;" onload="this.style.display='';document.getElementById('loading').style.display='none'" onerror="tryAgain(this)"/>
+                        <p id="loading" class="text-center" style="padding: 5em 0em;">Loading Image...</p>
+                        <div class="card" style="width: 100%;">
+                            <div class="card-body">
+                                <!-- <h5 class="card-title">Time Available</h5> -->
+                                <h6 class="card-subtitle mb-2 text-muted" >Personal Details</h6>
+                                <div class="card-text">
+                                    <ul class="list-group list-group-flush">
+                                        <li class="list-group-item">Name: <%= user.fullName %></li>
+                                        <li class="list-group-item">Email: <%= user.emailAddress %></li>
+                                    </ul>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-
-                <div class="col-md-6">
-                    <table class="table table-hover">
-                        <tbody>
-                            <tr>
-                            <th scope="row">Ad Title:</th>
-                            <td><%= ad.title %></td>
-                            </tr>
-                            <tr>
-                            <th scope="row">Job Type:</th>
-                            <td><%= ad.jobType %></td>
-                            </tr>
-                            <tr>
-                                <th scope="row">Description:</th>
-                                <td><%= ad.description %></td>
-                            </tr>
-                            <tr>
-                                <th scope="row">Location:</th>
-                                <td><%= ad.location %></td>
-                            </tr>
-                            <tr>
-                                <th scope="row">Contact:</th>
-                                <td><%= ad.contact %></td>
-                            </tr>
-                            <tr>
-                                <th scope="row">Salary:</th>
-                                <td><%= ad.salary %> per Hour / Month</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">Remarks:</th>
-                                <td><%= ad.remarks %></td>
-                            </tr>
-                        </tbody>
-                    </table>
+    
+                    <div class="col-md-6">
+                        <table class="table table-hover">
+                            <tbody>
+                                <br>
+                                <tr>
+                                <th scope="row">Ad Title:</th>
+                                <td><%= ad.title %></td>
+                                </tr>
+                                <tr>
+                                <th scope="row">Job Type:</th>
+                                <td><%= ad.jobType %></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Description:</th>
+                                    <td><%= ad.description %></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Location:</th>
+                                    <td><%= ad.location %></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Contact:</th>
+                                    <td><%= ad.contact %></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Salary:</th>
+                                    <td><%= ad.salary %> per Hour / Month</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Remarks:</th>
+                                    <td><%= ad.remarks %></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="card-footer text-center">
             <!-- only show when ad is Availability -->
-            <h5 class="card-title">- Time Available -</h5> 
-            <!-- only show when ad is Job -->
-            <h5 class="card-title" style="display: none;">- Time Requested -</h5> 
-            <table class="table table-bordered table-hover">
-                <thead>
-                <tr>
-                    <th></th>
-                    <th>MON</th>
-                    <th>TUE</th>
-                    <th>WED</th>
-                    <th>THU</th>
-                    <th>FRI</th>
-                    <th>SAT</th>
-                    <th>SUN</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr>
-                    <td>Morning</td>
-                    <td><input type="checkbox" disabled="disabled" name="availableTimeslot[morning][]" value="MON"></td>
-                    <td><input type="checkbox" disabled="disabled" name="availableTimeslot[morning][]" value="TUE"></td>
-                    <td><input type="checkbox" disabled="disabled" name="availableTimeslot[morning][]" value="WED"></td>
-                    <td><input type="checkbox" disabled="disabled" name="availableTimeslot[morning][]" value="THU"></td>
-                    <td><input type="checkbox" disabled="disabled" name="availableTimeslot[morning][]" value="FRI"></td>
-                    <td><input type="checkbox" disabled="disabled" name="availableTimeslot[morning][]" value="SAT"></td>
-                    <td><input type="checkbox" disabled="disabled" name="availableTimeslot[morning][]" value="SUN"></td>
-        
-                </tr>
-                <tr>
-                    <td>Afternoon</td>
-                    <td><input type="checkbox" disabled="disabled" name="availableTimeslot[afternoon][]" value="MON"></td>
-                    <td><input type="checkbox" disabled="disabled" name="availableTimeslot[afternoon][]" value="TUE"></td>
-                    <td><input type="checkbox" disabled="disabled" name="availableTimeslot[afternoon][]" value="WED"></td>
-                    <td><input type="checkbox" disabled="disabled" name="availableTimeslot[afternoon][]" value="THU"></td>
-                    <td><input type="checkbox" disabled="disabled" name="availableTimeslot[afternoon][]" value="FRI"></td>
-                    <td><input type="checkbox" disabled="disabled" name="availableTimeslot[afternoon][]" value="SAT"></td>
-                    <td><input type="checkbox" disabled="disabled" name="availableTimeslot[afternoon][]" value="SUN"></td>
-
-                </tr>
-                <tr>
-                    <td>Evening</td>
-                    <td><input type="checkbox" disabled="disabled" name="availableTimeslot[evening][]" value="MON"></td>
-                    <td><input type="checkbox" disabled="disabled" name="availableTimeslot[evening][]" value="TUE"></td>
-                    <td><input type="checkbox" disabled="disabled" name="availableTimeslot[evening][]" value="WED"></td>
-                    <td><input type="checkbox" disabled="disabled" name="availableTimeslot[evening][]" value="THU"></td>
-                    <td><input type="checkbox" disabled="disabled" name="availableTimeslot[evening][]" value="FRI"></td>
-                    <td><input type="checkbox" disabled="disabled" name="availableTimeslot[evening][]" value="SAT"></td>
-                    <td><input type="checkbox" disabled="disabled" name="availableTimeslot[evening][]" value="SUN"></td>
-                </tr>
-                <tr>
-                    <td>Midnight</td>
-                    <td><input type="checkbox" disabled="disabled" name="availableTimeslot[midnight][]" value="MON"></td>
-                    <td><input type="checkbox" disabled="disabled" name="availableTimeslot[midnight][]" value="TUE"></td>
-                    <td><input type="checkbox" disabled="disabled" name="availableTimeslot[midnight][]" value="WED"></td>
-                    <td><input type="checkbox" disabled="disabled" name="availableTimeslot[midnight][]" value="THU"></td>
-                    <td><input type="checkbox" disabled="disabled" name="availableTimeslot[midnight][]" value="FRI"></td>
-                    <td><input type="checkbox" disabled="disabled" name="availableTimeslot[midnight][]" value="SAT"></td>
-                    <td><input type="checkbox" disabled="disabled" name="availableTimeslot[midnight][]" value="SUN"></td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
-        <div class="card-footer bg-transparent text-center">
-            <p> Application Status: </p>
-            <a href="#" class="btn btn-info"><%= ad.adStatus %></a>
-        </div>
-        <div class="card-footer text-muted text-center">
-            <p> Last Updated At: <%= ad.updatedAt %></p>
+            <div class="card-footer text-center">
+                <h5 class="card-title">- Time Available -</h5>
+                <table class="table table-bordered table-hover" id="TTB" style="display: none;">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>MON</th>
+                            <th>TUE</th>
+                            <th>WED</th>
+                            <th>THU</th>
+                            <th>FRI</th>
+                            <th>SAT</th>
+                            <th>SUN</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Morning</td>
+                            <td><input id="[morning][MON]" type="checkbox"  name="availableTimeslot" value="[morning][MON]" disabled ></td>
+                            <td><input id="[morning][TUE]" type="checkbox"  name="availableTimeslot" value="[morning][TUE]" disabled ></td>
+                            <td><input id="[morning][WED]" type="checkbox"  name="availableTimeslot" value="[morning][WED]" disabled ></td>
+                            <td><input id="[morning][THU]" type="checkbox"  name="availableTimeslot" value="[morning][THU]" disabled ></td>
+                            <td><input id="[morning][FRI]" type="checkbox"  name="availableTimeslot" value="[morning][FRI]" disabled ></td>
+                            <td><input id="[morning][SAT]" type="checkbox"  name="availableTimeslot" value="[morning][SAT]" disabled ></td>
+                            <td><input id="[morning][SUN]" type="checkbox"  name="availableTimeslot" value="[morning][SUN]" disabled ></td>
+                
+                        </tr>
+                        <tr>
+                            <td>Afternoon</td>
+                            <td><input id="[afternoon][MON]" type="checkbox"  name="availableTimeslot" value="[afternoon][MON]" disabled ></td>
+                            <td><input id="[afternoon][TUE]" type="checkbox"  name="availableTimeslot" value="[afternoon][TUE]" disabled ></td>
+                            <td><input id="[afternoon][WED]" type="checkbox"  name="availableTimeslot" value="[afternoon][WED]" disabled ></td>
+                            <td><input id="[afternoon][THU]" type="checkbox"  name="availableTimeslot" value="[afternoon][THU]" disabled ></td>
+                            <td><input id="[afternoon][FRI]" type="checkbox"  name="availableTimeslot" value="[afternoon][FRI]" disabled ></td>
+                            <td><input id="[afternoon][SAT]" type="checkbox"  name="availableTimeslot" value="[afternoon][SAT]" disabled ></td>
+                            <td><input id="[afternoon][SUN]" type="checkbox"  name="availableTimeslot" value="[afternoon][SUN]" disabled ></td>
+    
+                        </tr>
+                        <tr>
+                            <td>Evening</td>
+                            <td><input id="[evening][MON]" type="checkbox"  name="availableTimeslot" value="[evening][MON]" disabled ></td>
+                            <td><input id="[evening][TUE]" type="checkbox"  name="availableTimeslot" value="[evening][TUE]" disabled ></td>
+                            <td><input id="[evening][WED]" type="checkbox"  name="availableTimeslot" value="[evening][WED]" disabled ></td>
+                            <td><input id="[evening][THU]" type="checkbox"  name="availableTimeslot" value="[evening][THU]" disabled ></td>
+                            <td><input id="[evening][FRI]" type="checkbox"  name="availableTimeslot" value="[evening][FRI]" disabled ></td>
+                            <td><input id="[evening][SAT]" type="checkbox"  name="availableTimeslot" value="[evening][SAT]" disabled ></td>
+                            <td><input id="[evening][SUN]" type="checkbox"  name="availableTimeslot" value="[evening][SUN]" disabled ></td>
+                        </tr>
+                        <tr>
+                            <td>Midnight</td>
+                            <td><input id="[midnight][MON]" type="checkbox"  name="availableTimeslot" value="[midnight][MON]" disabled ></td>
+                            <td><input id="[midnight][TUE]" type="checkbox"  name="availableTimeslot" value="[midnight][TUE]" disabled ></td>
+                            <td><input id="[midnight][WED]" type="checkbox"  name="availableTimeslot" value="[midnight][WED]" disabled ></td>
+                            <td><input id="[midnight][THU]" type="checkbox"  name="availableTimeslot" value="[midnight][THU]" disabled ></td>
+                            <td><input id="[midnight][FRI]" type="checkbox"  name="availableTimeslot" value="[midnight][FRI]" disabled ></td>
+                            <td><input id="[midnight][SAT]" type="checkbox"  name="availableTimeslot" value="[midnight][SAT]" disabled ></td>
+                            <td><input id="[midnight][SUN]" type="checkbox"  name="availableTimeslot" value="[midnight][SUN]" disabled ></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <table class="table table-bordered table-hover" id="DateLINE" style="display: none;">
+                    <thead>
+                        <tr>
+                            <th>Date & Time</th>
+                        </tr>
+                    </thead>
+                    
+                </table>
+            </div>
+            <!-- only show when ad is Job
+            <h5 class="card-title" style="display: none;">- Time Requested -</h5> -->
+            <div class="card-footer bg-transparent text-center">
+                <p> Application Status: </p>
+                <a href="#" class="btn btn-secondary"><%= ad.adStatus %></a>
+            </div>
+            <div class="card-footer text-muted text-center">
+                <p> Last Updated At: <%= ad.updatedAt %></p>
+            </div>
         </div>
     </div>
-</div>
-
-<br>
-<br>
+    
+    <br>
+    <br>
+    
+</body>
 
 <script>
     function tryAgain(e) 
@@ -153,4 +166,50 @@
     var source = e.src;
     e.src = source;
     }
+
+    function loadAvailability(scheduleOptions, availableTimeslot, requestedTimeslot)
+    {   
+        // console.log("Received data: [available]" + availableTimeslot + "[requested]" + requestedTimeslot)
+        if(availableTimeslot != ""){
+            const availableTimeslotNEW = availableTimeslot.split(",");
+            // console.log("New availableTimeslot??" , availableTimeslotNEW);
+            if(scheduleOptions== 'one-off'){
+                document.getElementById("DateLINE").style.display = '';
+                document.getElementById("TTB").style.display = 'none';
+                for (let i = 0; i < availableTimeslotNEW.length; i++){
+                    var row = '<tr>' + '<td><input name="availabilityTimeslot"  class="form-control" type="datetime-local" value="'+availableTimeslotNEW[i]+'" readOnly /></td>' + '</tr>';
+                    $("#DateLINE").append(row);
+                    }
+            }else if(scheduleOptions== 'regular'){
+                document.getElementById("DateLINE").style.display = 'none';
+                document.getElementById("TTB").style.display = '';
+                for (let i = 0; i < availableTimeslotNEW.length; i++){
+                    document.getElementById(availableTimeslotNEW[i]).checked = true;
+                }
+            }
+        }else if(requestedTimeslot != ""){
+            // console.log("Received data??" , requestedTimeslot);
+            const requestedTimeslotNEW = requestedTimeslot.split(",");
+            // console.log("New requestedTimeslotNEW??" , requestedTimeslotNEW);
+            if(scheduleOptions== 'one-off'){
+                document.getElementById("DateLINE").style.display = '';
+                document.getElementById("TTB").style.display = 'none';
+                for (let i = 0; i < requestedTimeslotNEW.length; i++){
+                    var row = '<tr>' + '<td><input name="requestedTimeslot"  class="form-control" type="datetime-local" value="'+requestedTimeslotNEW[i]+'" readOnly /></td>' + '</tr>';
+                    $("#DateLINE").append(row);
+                    }
+            }else if(scheduleOptions== 'regular'){
+                document.getElementById("DateLINE").style.display = 'none';
+                document.getElementById("TTB").style.display = '';
+                for (let i = 0; i < requestedTimeslotNEW.length; i++){
+                    document.getElementById(requestedTimeslotNEW[i]).checked = true;
+                }
+            }
+        }else{
+            alert("[Error!] Cannot receive any time data!");
+        }
+        
+        
+    }
+
 </script>

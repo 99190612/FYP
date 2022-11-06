@@ -24,6 +24,11 @@ module.exports = {
       columnType: 'array',
     },
 
+    scheduleOptions: {
+      type: "string",
+      isIn: ["one-off","regular"],
+    },
+
     //for Jobs Ads
     adType: {
       type: "string",
@@ -71,7 +76,7 @@ module.exports = {
     application_pic: {
       type: "number",
     },
-    
+
     //  ╔═╗╔╦╗╔╗ ╔═╗╔╦╗╔═╗
     //  ║╣ ║║║╠╩╗║╣  ║║╚═╗
     //  ╚═╝╩ ╩╚═╝╚═╝═╩╝╚═╝

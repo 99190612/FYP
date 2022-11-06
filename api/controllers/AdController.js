@@ -86,7 +86,8 @@ module.exports = {
 
             if (!thatAd) return res.notFound();
             thatAd.updatedAt = new Date(thatAd.updatedAt); 
-            return res.view("pages/ads/adDetails", { ad: thatAd, img: thatFile });
+            var thatUser = await User.findOne(thatAd.owner);
+            return res.view("pages/ads/adDetails", { ad: thatAd, img: thatFile, user: thatUser});
         }
     },
     
