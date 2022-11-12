@@ -131,5 +131,15 @@ module.exports = {
         return res.view("pages/dashboard/viewCanadidate", { ads: thoseads, imgs: thoseFile});
     },
 
+    search: async function(req, res){
+        if (req.method == "GET") return res.view("pages/dashboard/search");
+        return res.json(req.allParams());
+    },
+
+    question: async function(req, res){
+        if (req.method == "GET") return res.view("pages/dashboard/question");
+        return res.json(req.allParams());
+    },
+
 };
 

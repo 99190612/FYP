@@ -1,0 +1,240 @@
+<head>
+    <link rel="stylesheet" href="/styles/layout-question.css">
+</head>
+<body>
+    <div class="form-container" style="background-color: #EAEAEA; width: 70%; margin: 100px auto;padding: 2em 2em;">
+        <div name="main-form" id="main-form">
+            <div class="form1">
+                <br>
+                <h4>Please answer few questions:</h4>
+                <div class="">
+                    <br>
+                    <p>Which type(s) of Care are you looking for?</p>
+                    <br>
+                    <div class="ans-container" style="outline: black solid 3px; padding: 1em 1em;">
+                        <div class="row" style="padding: 1em;">
+                            <div class="col-md-6">
+                                <div class="btn-group-toggle" data-toggle="buttons">
+                                    <label class="btn btn-outline-primary">
+                                        <input type="checkbox" value="HouseKeeper" id="HouseKeeper" name="Q1checkbox"> HouseKeeper
+                                    </label>
+                                </div>
+                            </div>
+                            
+                            <div class="col-md-6">
+                                <div class="btn-group-toggle" data-toggle="buttons">
+                                    <label class="btn btn-outline-primary">
+                                        <input type="checkbox" value="Personal Care" id="Personal Care" name="Q1checkbox"> Personal Care
+                                    </label>
+                                </div>
+                            </div>
+                            
+                        </div>   
+
+                        <div class="row" style="padding: 1em;">
+                            <div class="col-md-6">
+                                <div class="btn-group-toggle" data-toggle="buttons">
+                                    <label class="btn btn-outline-primary">
+                                        <input type="checkbox" value="Medical Care" id="Medical Care" name="Q1checkbox"> Medical Care
+                                    </label>
+                                </div>
+                            </div>
+                            
+                            <div class="col-md-6">
+                                <div class="btn-group-toggle" data-toggle="buttons">
+                                    <label class="btn btn-outline-primary">
+                                        <input type="checkbox" value="Elderly Care" id="Elderly Care" name="Q1checkbox"> Elderly Care
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+        
+                        <div class="row" style="padding: 1em;"> 
+                            <div class="col-md-6">
+                                <div class="btn-group-toggle" data-toggle="buttons">
+                                    <label class="btn btn-outline-primary">
+                                        <input type="checkbox" value="Child Care" id="Child Care" name="Q1checkbox"> Child Care
+                                    </label>
+                                </div>
+                                
+                            </div>
+                        </div>
+        
+                    </div>
+                </div>
+                <br>
+                <button class="btn btn-dark" id="go-to-step-2" style="float: right;">Next</button>
+                <br>
+            </div>
+        </div>
+    </div>
+<script type="text/javascript">
+    let careType = "";
+    let freq = "";
+    let area = "";
+    let csrf = "";
+
+/**
+ * Returns the HTML of a specific subform (or step)
+ *
+ * @param {number} step - The step of the form you want the HTML of
+ */
+const getFormHTML = (step) => {
+	switch (step) {
+		case 2:
+			return `
+				<div class="form2" style="background-color: #EAEAEA;">
+                    <p>How often will you need a Care?</p>
+                    <div class="ans-container" style="outline: black solid 3px; padding: 2em 2em;">
+                        <div class="btn-group-toggle" data-toggle="buttons">
+                                <label class="btn btn-outline-success">
+                                <input type="radio" value="one-off" id="one-off"> One-Off
+                                </label>
+
+                                <label class="btn btn-outline-success">
+                                <input type="radio" value="regular" id="regular"> Regular
+                                </label>
+                        </div>
+                    </div>
+                    <br>
+                    <p>Which district are you living?</p>
+                    <div class="ans-container" style="outline: black solid 3px; padding: 2em 2em;">
+                        <div class="btn-group-toggle" data-toggle="buttons">
+                                <label class="btn btn-outline-success">
+                                <input type="radio" value="NT" id="NT" name="Q3checkbox"> New-Territories
+                                </label>
+
+                                <label class="btn btn-outline-success">
+                                <input type="radio" value="KL" id="KL" name="Q3checkbox"> Kowloon
+                                </label>
+
+                                <label class="btn btn-outline-success">
+                                <input type="radio" value="HK" id="HK" name="Q3checkbox"> Hong Kong Island
+                                </label>
+
+                                <label class="btn btn-outline-success">
+                                <input type="radio" value="OTHERS" id="OTHERS" name="Q3checkbox"> Islands
+                                </label>
+                        </div>
+                    </div>
+                    <br>
+ 				</div>
+                    <button class="btn btn-dark" id="go-to-step-3" style="float: right;">Next</button>
+                    <br>
+			`;
+		case 3:
+			return `
+				<form action="/question" method="POST" style="background-color: #EAEAEA;">
+                    <h4>Submit your answers:</h4>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">Care Type</span>
+                        </div>
+                        <input class="form-control" type="text" id="jobType" name="jobType" aria-label="Care Type" value="${careType}"><br>
+                    </div>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">Frequency</span>
+                        </div>
+                        <input class="form-control" type="text" id="scheduleOptions" name="scheduleOptions" aria-label="Frequency" value="${freq}"><br>
+                    </div>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">Living Area</span>
+                        </div>
+                        <input class="form-control" type="text" id="area" name="area" aria-label="Living Area" value="${area}"><br>
+                    </div>
+                    <input type="hidden" name="_csrf" id="_csrf" value="<%- _csrf %>" />
+					<button class="btn btn-primary" type="submit" style="float: right">Submit form</button>
+                    <br>
+				</form>
+			`;
+		default:
+			return "";
+	}
+};
+
+/**
+ * Apply a custom style if the field is not valid
+ *
+ * @param {DOMNode} field - The target DOM node you want the styles to be applied to
+ * @param {bool} condition - The condition that determines if the field is valid
+ */
+const isValidField = (field, condition) => {
+	field.style.borderColor = condition ? "black" : "red";
+	return condition;
+};
+
+// ✅ We need to wait for the DOM to be ready!
+window.addEventListener("DOMContentLoaded", () => {
+
+	// ℹ️ Listens for any clicks within the document.
+	// We do this way because we'll be inserting dynamic HTML, thus we cannot
+	// add event listeners for the dynamic elements.
+	document.addEventListener("click", (e) => {
+		if (!e.target) return;
+
+		if (e.target.id == "go-to-step-2") {
+			e.preventDefault();
+            var checkboxs = [] //use to store value of checkbox
+            var elements = document.querySelectorAll('input[name=Q1checkbox]:checked')
+            
+            // ⚡️ If any validation error occurs, prevent user from going to the next step!
+            if(elements.length == 0){
+                alert("Please select at least one~");
+                return;
+            }
+			
+			// 🔥 Save the values in our "global state"
+            for (var i = 0; i < elements.length; i++) {
+                checkboxs.push(elements[i].value)
+            }
+            careType = checkboxs;
+            console.log("careType value", careType);
+
+			// 🆒 Replace the content of the form with the new sub-form
+			document.getElementById("main-form").innerHTML = getFormHTML(2);
+		}
+
+		if (e.target.id == "go-to-step-3") {
+			e.preventDefault();
+			freqEl = document.getElementById("one-off");
+            console.log("freq1: " ,freqEl.value);
+            if(freqEl.checked == false){
+                freqEl = document.getElementById("regular");
+                if(freqEl.checked == false){
+                    alert("Please select at least one~");
+                    return;
+                }
+            }
+            console.log("freq2: " ,freqEl.value);
+            csrfEl = document.getElementById("_csrf");
+
+            var element = document.getElementById("NT");
+
+            if(element.checked == false){
+                element = document.getElementById("KL");
+                if(element.checked == false){
+                    element = document.getElementById("HK");
+                    if(element.checked == false){
+                        element = document.getElementById("OTHERS");
+                        if(element.checked == false){
+                            alert("Please select your living district~");
+                            return;
+                        }
+                    }
+                }
+            }
+            
+			if (!isValidField(freqEl, !!freqEl.value.length)) return;
+
+            console.log("Living area: ", element.value);
+			// 🔥 Save the values in our "global state"
+            area = element.value;
+            freq = freqEl.value;
+
+			document.getElementById("main-form").innerHTML = getFormHTML(3);
+		}
+	});
+});
+</script>

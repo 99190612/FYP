@@ -28,6 +28,11 @@ module.exports.routes = {
   'GET /viewJob': 'AdController.displayJob',
   'GET /viewCanadidate': 'AdController.displayCanadidate',
 
+  'GET /search': 'AdController.search',
+  'GET /question': 'AdController.question',
+  'POST /question': 'AdController.question',
+
+
   // ---------------------
 
   'GET /faq':                { action:   'view-faq' },
