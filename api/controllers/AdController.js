@@ -132,8 +132,42 @@ module.exports = {
     },
 
     search: async function(req, res){
-        if (req.method == "GET") return res.view("pages/dashboard/search");
-        return res.json(req.allParams());
+        if (req.method == "GET"){
+            var perPage = Math.max(req.query.perPage, 6) || 6;
+
+            var allAds = await Ad.find({
+                limit: perPage,
+                skip: perPage * (Math.max(req.query.current - 1, 0) || 0)
+            });
+
+            let picArr = [];
+            allAds.forEach((item) => picArr.push(item.application_pic));
+            var thoseFile = await Files.find({
+                where: picArr,
+                sort: 'id',
+            });
+
+            var count = await Ad.count();
+            return res.view("pages/dashboard/search", { ads: allAds, imgs: thoseFile, total: count });
+            }
+
+//         if (req.wantsJSON) {
+
+//             var perPage = Math.max(req.query.perPage, 2) || 2;
+
+//             var someAds = await Ad.find({
+//                 limit: perPage,
+//                 skip: perPage * (Math.max(req.query.current - 1, 0) || 0)
+//     });
+
+//         return res.json(someAds);
+
+//         } else {
+
+//             var count = await Ad.count();
+
+//                 return res.view('pages/dashboard/search', { total: count });
+// }
     },
 
     question: async function(req, res){

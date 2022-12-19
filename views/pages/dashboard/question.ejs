@@ -1,6 +1,3 @@
-<head>
-    <link rel="stylesheet" href="/styles/layout-question.css">
-</head>
 <body>
     <div class="form-container" style="background-color: #EAEAEA; width: 70%; margin: 100px auto;padding: 2em 2em;">
         <div name="main-form" id="main-form">
@@ -15,7 +12,7 @@
                         <div class="row" style="padding: 1em;">
                             <div class="col-md-6">
                                 <div class="btn-group-toggle" data-toggle="buttons">
-                                    <label class="btn btn-outline-primary">
+                                    <label class="btn btn-outline-dark">
                                         <input type="checkbox" value="HouseKeeper" id="HouseKeeper" name="Q1checkbox"> HouseKeeper
                                     </label>
                                 </div>
@@ -23,7 +20,7 @@
                             
                             <div class="col-md-6">
                                 <div class="btn-group-toggle" data-toggle="buttons">
-                                    <label class="btn btn-outline-primary">
+                                    <label class="btn btn-outline-dark">
                                         <input type="checkbox" value="Personal Care" id="Personal Care" name="Q1checkbox"> Personal Care
                                     </label>
                                 </div>
@@ -34,7 +31,7 @@
                         <div class="row" style="padding: 1em;">
                             <div class="col-md-6">
                                 <div class="btn-group-toggle" data-toggle="buttons">
-                                    <label class="btn btn-outline-primary">
+                                    <label class="btn btn-outline-dark">
                                         <input type="checkbox" value="Medical Care" id="Medical Care" name="Q1checkbox"> Medical Care
                                     </label>
                                 </div>
@@ -42,7 +39,7 @@
                             
                             <div class="col-md-6">
                                 <div class="btn-group-toggle" data-toggle="buttons">
-                                    <label class="btn btn-outline-primary">
+                                    <label class="btn btn-outline-dark">
                                         <input type="checkbox" value="Elderly Care" id="Elderly Care" name="Q1checkbox"> Elderly Care
                                     </label>
                                 </div>
@@ -52,7 +49,7 @@
                         <div class="row" style="padding: 1em;"> 
                             <div class="col-md-6">
                                 <div class="btn-group-toggle" data-toggle="buttons">
-                                    <label class="btn btn-outline-primary">
+                                    <label class="btn btn-outline-dark">
                                         <input type="checkbox" value="Child Care" id="Child Care" name="Q1checkbox"> Child Care
                                     </label>
                                 </div>
@@ -100,19 +97,19 @@ const getFormHTML = (step) => {
                     <p>Which district are you living?</p>
                     <div class="ans-container" style="outline: black solid 3px; padding: 2em 2em;">
                         <div class="btn-group-toggle" data-toggle="buttons">
-                                <label class="btn btn-outline-success">
+                                <label class="btn btn-outline-primary">
                                 <input type="radio" value="NT" id="NT" name="Q3checkbox"> New-Territories
                                 </label>
 
-                                <label class="btn btn-outline-success">
+                                <label class="btn btn-outline-primary">
                                 <input type="radio" value="KL" id="KL" name="Q3checkbox"> Kowloon
                                 </label>
 
-                                <label class="btn btn-outline-success">
+                                <label class="btn btn-outline-primary">
                                 <input type="radio" value="HK" id="HK" name="Q3checkbox"> Hong Kong Island
                                 </label>
 
-                                <label class="btn btn-outline-success">
+                                <label class="btn btn-outline-primary">
                                 <input type="radio" value="OTHERS" id="OTHERS" name="Q3checkbox"> Islands
                                 </label>
                         </div>
@@ -124,28 +121,29 @@ const getFormHTML = (step) => {
 			`;
 		case 3:
 			return `
-				<form action="/question" method="POST" style="background-color: #EAEAEA;">
+				<form action="/viewCanadidate" method="POST" style="background-color: #EAEAEA;">
                     <h4>Submit your answers:</h4>
+                    <br>
                     <div class="input-group mb-3">
                         <div class="input-group-prepend">
                             <span class="input-group-text">Care Type</span>
                         </div>
-                        <input class="form-control" type="text" id="jobType" name="jobType" aria-label="Care Type" value="${careType}"><br>
+                        <input class="form-control" type="text" id="jobType" name="jobType" aria-label="Care Type" value="${careType}" readonly><br>
                     </div>
                     <div class="input-group mb-3">
                         <div class="input-group-prepend">
                             <span class="input-group-text">Frequency</span>
                         </div>
-                        <input class="form-control" type="text" id="scheduleOptions" name="scheduleOptions" aria-label="Frequency" value="${freq}"><br>
+                        <input class="form-control" type="text" id="scheduleOptions" name="scheduleOptions" aria-label="Frequency" value="${freq}" readonly><br>
                     </div>
                     <div class="input-group mb-3">
                         <div class="input-group-prepend">
                             <span class="input-group-text">Living Area</span>
                         </div>
-                        <input class="form-control" type="text" id="area" name="area" aria-label="Living Area" value="${area}"><br>
+                        <input class="form-control" type="text" id="area" name="area" aria-label="Living Area" value="${area}" readonly><br>
                     </div>
                     <input type="hidden" name="_csrf" id="_csrf" value="<%- _csrf %>" />
-					<button class="btn btn-primary" type="submit" style="float: right">Submit form</button>
+					<button class="btn btn-primary" type="submit" style="float: right">Submit</button>
                     <br>
 				</form>
 			`;
