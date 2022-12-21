@@ -15,6 +15,8 @@
                                     <%= ads[i].title %></a>
                             </div>
                             <p class="card-text"><%= ads[i].jobType %></p>
+                            <time class="card-text"><%= ads[i].createdAt %></time>
+                            <p class="card-text" ><%= ads[i].adType %> (for testing ONLY)</p>
                         </div>
                         </div>
                 <% }; %>
@@ -24,13 +26,13 @@
             <div class="col-md-4 right-container card" style="padding: 5em 2em; background-color:#F1F6F5;">
                 <h1 style="text-align: center;">Search</h1>
                 <hr>
-                <form @submit.prevent="formData">
+                <form action="/searchResult" method="POST">
                     <div class="row" style="padding: 1em 1em;">
                         <div class="input-group mb-3">
 							<div class="input-group-prepend">
 								<span class="input-group-text"><i class="fa fa-key"></i></span>
 							</div>
-							<input type="text" name="keywords" class="form-control" placeholder="Keywords Search...">
+							<input type="text" name="title" class="form-control" placeholder="Keywords Search...">
 						</div>
                     </div>
 
@@ -40,9 +42,9 @@
                                 <label class="input-group-text" for="inputGroupSelect01"><i class="fa fa-user"></i></label>
                             </div>
                             <select class="browser-default custom-select" id="adType" name="adType">
-                                <option selected>Finding...</option>
+                                <option selected value="">Finding...</option>
                                 <option value="Job">Job</option>
-                                <option value="Canadidate">Canadidate</option>
+                                <option value="Availability">Canadidate</option>
                             </select>
                             </div>
                     </div>
@@ -53,7 +55,7 @@
                                 <label class="input-group-text" for="inputGroupSelect01"><i class="fa fa-calendar" aria-hidden="true"></i></label>
                             </div>
                             <select class="browser-default custom-select" id="scheduleOptions" name="scheduleOptions">
-                                <option selected>Schedule...</option>
+                                <option selected value="">Schedule...</option>
                                 <option value="Regular">Regular</option>
                                 <option value="One-off">One-off</option>
                             </select>
@@ -66,7 +68,7 @@
                                 <label class="input-group-text" for="inputGroupSelect01">Care Types</label>
                             </div>
                             <select class="browser-default custom-select" id="jobType" name="jobType">
-                                <option selected>Choose...</option>
+                                <option selected value="">Choose...</option>
                                 <option value="Elderly Care">Elderly Care</option>
                                 <option value="Child Care">Child Care</option>
                                 <option value="Medical Care">Medical Care</option>
@@ -86,17 +88,17 @@
 
         <nav aria-label="Page navigation" style="padding: 1em 0;">
             <ul class="pagination justify-content-center">
+                <li class="page-item"><a class="page-link" href="#" id="firstLink"><i class="fa fa-angle-double-left"></i></a></li>
                 <li class="page-item" id="previousParent">
                     <a class="page-link" id="previousButton"><i class="fa fa-angle-left"></i></a>
                 </li>
-                <li class="page-item"><a class="page-link" href="#" id="firstLink"><i class="fa fa-angle-double-left"></i></a></li>
                 <li class="page-item"><a class="page-link" href="#" id="previousLink">2</a></li>
                 <li class="page-item active"><a class="page-link" href="#" id="currentLink">3</a></li>
                 <li class="page-item"><a class="page-link" href="#" id="nextLink">4</a></li>
-                <li class="page-item"><a class="page-link" href="#" id="lastLink"><i class="fa fa-angle-double-right"></i></a></li>
                 <li class="page-item" id="nextParent">
                     <a class="page-link" id="nextButton"><i class="fa fa-angle-right"></i></a>
                 </li>
+                <li class="page-item"><a class="page-link" href="#" id="lastLink"><i class="fa fa-angle-double-right"></i></a></li>
             </ul>
         </nav>
 

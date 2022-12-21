@@ -29,7 +29,7 @@ module.exports.routes = {
   'GET /viewCanadidate': 'AdController.displayCanadidate',
 
   'GET /search': 'AdController.search',
-  'POST /search': 'AdController.search',
+  'POST /searchResult': 'AdController.searchResult',
   'GET /question': 'AdController.question',
 
 

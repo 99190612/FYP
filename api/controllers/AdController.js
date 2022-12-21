@@ -113,6 +113,7 @@ module.exports = {
             where: picArr,
             sort: 'id',
         });
+        thoseads.forEach((item)  =>  item.createdAt = new Date(item.createdAt).toLocaleDateString());
         return res.view("pages/dashboard/viewJob", { ads: thoseads, imgs: thoseFile});
     },
 
@@ -128,6 +129,7 @@ module.exports = {
             where: picArr,
             sort: 'id',
         });
+        thoseads.forEach((item)  =>  item.createdAt = new Date(item.createdAt).toLocaleDateString());
         return res.view("pages/dashboard/viewCanadidate", { ads: thoseads, imgs: thoseFile});
     },
 
@@ -148,27 +150,39 @@ module.exports = {
             });
 
             var count = await Ad.count();
+            allAds.forEach((item)  =>  item.createdAt = new Date(item.createdAt).toLocaleDateString());
             return res.view("pages/dashboard/search", { ads: allAds, imgs: thoseFile, total: count });
             }
-
-//         if (req.wantsJSON) {
-
-//             var perPage = Math.max(req.query.perPage, 2) || 2;
-
-//             var someAds = await Ad.find({
-//                 limit: perPage,
-//                 skip: perPage * (Math.max(req.query.current - 1, 0) || 0)
-//     });
-
-//         return res.json(someAds);
-
-//         } else {
-
-//             var count = await Ad.count();
-
-//                 return res.view('pages/dashboard/search', { total: count });
-// }
     },
+
+    searchResult: async function(req, res){
+            // var perPage = Math.max(req.query.perPage, 6) || 6;
+
+            formData = [req.body.keywords, req.body.adType, req.body.scheduleOptions, req.body.jobType];
+            console.log("passing search results --->>> " + formData);
+            var whereClause = {};
+
+            if (req.body.title) whereClause.title = { contains: req.body.title };
+            if (req.body.adType) whereClause.adType = req.body.adType;
+            if (req.body.scheduleOptions) whereClause.scheduleOptions = req.body.scheduleOptions;
+            if (req.body.jobType) whereClause.jobType = req.body.jobType;
+
+            var someAds = await Ad.find({
+                where: whereClause,
+            });
+
+            let picArr = [];
+            someAds.forEach((item) => picArr.push(item.application_pic));
+            var thoseFile = await Files.find({
+                where: picArr,
+                sort: 'id',
+            });
+
+            var count = someAds.length;
+            console.log("ad find --> " + count);
+            someAds.forEach((item)  =>  item.createdAt = new Date(item.createdAt).toLocaleDateString());
+            return res.view("pages/dashboard/searchResult", { ads: someAds, imgs: thoseFile, total: count });
+        },
 
     question: async function(req, res){
         if (req.method == "GET") return res.view("pages/dashboard/question");
