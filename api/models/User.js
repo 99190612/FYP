@@ -163,14 +163,14 @@ without necessarily having a billing card.`
     //  ╔═╗╔═╗╔═╗╔═╗╔═╗╦╔═╗╔╦╗╦╔═╗╔╗╔╔═╗
     //  ╠═╣╚═╗╚═╗║ ║║  ║╠═╣ ║ ║║ ║║║║╚═╗
     //  ╩ ╩╚═╝╚═╝╚═╝╚═╝╩╩ ╩ ╩ ╩╚═╝╝╚╝╚═╝
-    ads: {
+    adOwn: {
       collection: 'ad',
-      via: 'owner'
+      via: 'adCreator'
     },
 
-    files:{
+    filesOwn:{
       collection: 'files',
-      via: 'uploaded_by'
+      via: 'file_creator'
     },
 
 

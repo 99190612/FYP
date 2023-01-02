@@ -9,6 +9,7 @@
  * https://sailsjs.com/config/bootstrap
  */
 
+
 module.exports.bootstrap = async function() {
 
   // Import dependencies
@@ -60,9 +61,53 @@ module.exports.bootstrap = async function() {
 
   // By convention, this is a good place to set up fake data during development.
   await User.createEach([
-    { emailAddress: 'admin@example.com', fullName: 'Ryan Dahl', isSuperAdmin: true, password: await sails.helpers.passwords.hashPassword('123') },
-    { emailAddress: 'wingsze1999@example.com', fullName: 'WingSze LEE', isSuperAdmin: false, password: await sails.helpers.passwords.hashPassword('2939') },
+    { emailAddress: 'admin@example.com', fullName: 'Ryan Dahl', isSuperAdmin: true, password: await sails.helpers.passwords.hashPassword('123456') },
+    { emailAddress: 'wingsze1999@example.com', fullName: 'WingSze LEE', isSuperAdmin: false, password: await sails.helpers.passwords.hashPassword('123456') },
+    { emailAddress: 'test@example.com', fullName: 'Crystal LEE', isSuperAdmin: false, password: await sails.helpers.passwords.hashPassword('123456') },
   ]);
+
+    const s1 = await User.findOne({emailAddress: "admin@example.com"});
+    const s2 = await User.findOne({emailAddress: "wingsze1999@example.com"});
+    const s3 = await User.findOne({emailAddress: "test@example.com"});
+
+
+  await Files.createEach([
+    {fd:"/Users/wingsze/Project2/assets/images/uploads/3fab8b41-0eae-4d42-9410-f37971f2901d.jpeg",type:"image/jpeg", filename:"women7.jpeg", url:"/images/uploads/3fab8b41-0eae-4d42-9410-f37971f2901d.jpeg",uploaded_by:s1.id,},
+    {fd:"/Users/wingsze/Project2/assets/images/uploads/3dd5b078-a923-48a3-bb03-c0d9710d0969.jpeg",type:"image/jpeg", filename:"women3.jpeg", url:"/images/uploads/3dd5b078-a923-48a3-bb03-c0d9710d0969.jpeg",uploaded_by:s2.id,},
+    {fd:"/Users/wingsze/Project2/assets/images/uploads/93a352b9-b8fd-435c-a200-a70520c7e7b0.jpeg",type:"image/jpeg", filename:"women2.jpeg", url:"/images/uploads/93a352b9-b8fd-435c-a200-a70520c7e7b0.jpeg",uploaded_by:s3.id,},
+    {fd:"/Users/wingsze/Project2/assets/images/uploads/28188b49-f960-4002-815b-f395ef445500.jpeg",type:"image/jpeg", filename:"child2.jpeg", url:"/images/uploads/28188b49-f960-4002-815b-f395ef445500.jpeg",uploaded_by:s1.id,},
+    {fd:"/Users/wingsze/Project2/assets/images/uploads/470cfad4-8424-41e1-befc-fc21ace76dfd.jpeg",type:"image/jpeg",filename:"elderly3.jpeg",url:"/images/uploads/470cfad4-8424-41e1-befc-fc21ace76dfd.jpeg",uploaded_by:s2.id,},
+    {fd:"/Users/wingsze/Project2/assets/images/uploads/74b48d04-9f3e-4bc9-9670-a56047c2e05a.webp",type:"image/webp", filename:"house3.webp", url:"/images/uploads/74b48d04-9f3e-4bc9-9670-a56047c2e05a.webp",uploaded_by:s3.id,},
+    
+  ]);
+
+  const f1 = await Files.findOne({filename:"women7.jpeg"});
+  const f2 = await Files.findOne({filename:"women3.jpeg"});
+  const f3 = await Files.findOne({filename:"women2.jpeg"});
+  const f4 = await Files.findOne({filename:"child2.jpeg"});
+  const f5 = await Files.findOne({filename:"elderly3.jpeg"});
+  const f6 = await Files.findOne({filename:"house3.webp"});
+    
+  await Ad.createEach([
+    { title:"Worked for over 10 yrs as caretakers", adType:"Availability", jobType:"Child Care", scheduleOptions:"regular", location:"Sham Shui Po", contact:"wingsze1999@gmail.com", adStatus:"wait for approval", description:"worked for 15+ families, able to work for whole days with fixed schedules.", salary:"500",remarks:"Did crime check already", availableTimeslot:["[morning][MON]","[morning][THU]","[morning][FRI]","[morning][SAT]","[morning][SUN]","[afternoon][MON]","[afternoon][THU]","[afternoon][FRI]","[afternoon][SAT]","[afternoon][SUN]","[evening][MON]","[evening][THU]","[evening][FRI]","[evening][SAT]","[evening][SUN]"], application_pic:f1.id, owner: s1.id},
+    { title:"Able to work as multiple types of care", adType:"Availability", jobType:"Personal Care", scheduleOptions:"regular", location:"Yau Tsim Mong", contact:"75675674 wts available", adStatus:"wait for approval", description:"Have related experiences in taking care of children, the elderly and housekeepers",salary:"250",remarks:"Own bachelor degree", availableTimeslot:["[afternoon][MON]","[afternoon][TUE]","[afternoon][WED]","[afternoon][THU]","[afternoon][FRI]","[afternoon][SAT]","[afternoon][SUN]","[evening][MON]","[evening][TUE]","[evening][WED]","[evening][THU]","[evening][FRI]","[evening][SAT]","[evening][SUN]"], application_pic:f2.id, owner: s2.id},
+    { title:"Temporary available (open to work as housekeeper)", adType:"Availability", jobType:"HouseKeeper", scheduleOptions:"one-off", location:"Kwun Tong", contact:"test@gmail.com", adStatus:"wait for approval", description:"I had worked for 50+ jobs last year, and the rest for half year, and open to job now.\r\nLooking for a friendly employer. ",salary:"280",remarks:"", availableTimeslot:["2022-12-23T00:00","2023-01-23T00:00"], application_pic:f3.id, owner: s3.id},
+    { title:"Taking care 1 yr old children", adType:"Job", jobType:"Child Care", scheduleOptions:"regular", location:"Kowloon City", contact:"93748294", adStatus:"wait for approval", description:"Need to have experience in taking care of children.",salary:"4500",remarks:"Have cats in the house", availableTimeslot:null, requestedTimeslot:["[morning][SAT]","[morning][SUN]","[afternoon][SAT]","[afternoon][SUN]","[evening][SAT]","[evening][SUN]"], application_pic:f4.id, owner: s1.id},
+    { title:"Take care of 80s elderly", adType:"Job", jobType:"Elderly Care", scheduleOptions:"regular", location:"Sha Tin", contact:"38463892", adStatus:"wait for approval", description:"Responsible to take her to the hospital every week. Expected 2 hrs needed for the rounded trip.",salary:"300",remarks:"prefer to have experience in take care of elderly with illness", availableTimeslot:null, requestedTimeslot:["[morning][FRI]","[afternoon][FRI]"], application_pic:f5.id, owner: s2.id},
+    { title:"Daily cleaning jobs", adType:"Job", jobType:"HouseKeeper", scheduleOptions:"regular", location:"Sham Shui Po", contact:"76348398", adStatus:"wait for approval", description:"Able to work 2-3 hours per day and 3 days per week. Time is not fixed, able to change based on your schedule.",salary:"200",remarks:"Cant afraid of animals ", availableTimeslot:null, requestedTimeslot:["[morning][MON]","[morning][TUE]","[morning][WED]","[morning][THU]","[morning][FRI]","[afternoon][MON]","[afternoon][TUE]","[afternoon][WED]","[afternoon][THU]","[afternoon][FRI]","[evening][MON]","[evening][TUE]","[evening][WED]","[evening][THU]","[evening][FRI]"], application_pic:f6.id, owner: s3.id},
+    
+  ]);
+
+  const a1 = await Ad.findOne({title:"Worked for over 10 yrs as caretakers"});
+    const a2 = await Ad.findOne({title:"Able to work as multiple types of care"});
+    const a3 = await Ad.findOne({title:"Temporary available (open to work as housekeeper)"});
+    const a4 = await Ad.findOne({title:"Taking care 1 yr old children"});
+    const a5 = await Ad.findOne({title:"Take care of 80s elderly"});
+    const a6 = await Ad.findOne({title:"Daily cleaning jobs"});
+
+    
+
+    
 
   // Save new bootstrap version
   await sails.helpers.fs.writeJson.with({

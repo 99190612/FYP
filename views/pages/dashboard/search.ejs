@@ -1,169 +1,135 @@
-
-<body>
-    <section>
-        <div class="row">
-            <div class="col-md-8 left-container" style="padding-top: 2em;">
-                <!--paginate.ejs-->
-                <div class="row">
-                <% for (let i = 0; i < ads.length; i++) { %>
-                    <div class="card col-md-4">
-                        <img class="card-img-top" src="<%= imgs[i].url %>" alt="Card image cap"  
+<link rel="stylesheet" href="https://unpkg.com/buefy/dist/buefy.min.css">
+<div id="search" class="row">
+    <div class="column is-two-thirds">
+        <div class="columns" v-if="haveResult">
+            <div class="card col-md-4" v-for="(ad, index) in ads">
+                <img class="card-img-top" :src="imgs[index].url" alt="Card image cap"  
                         style="display: none; width: 100%; height: 15vw; object-fit: cover;" onload="this.style.display='';document.getElementById('loading').style.display='none'" onerror="tryAgain(this)"/>
-                        <div class="card-body">
-                            <div class="card-title">
-                                <a href="/ads/adDetails/<%= ads[i].id %>">
-                                    <%= ads[i].title %></a>
-                            </div>
-                            <p class="card-text"><%= ads[i].jobType %></p>
-                            <time class="card-text"><%= ads[i].createdAt %></time>
-                            <p class="card-text" ><%= ads[i].adType %> (for testing ONLY)</p>
+                    <div class="card-body">
+                        <div class="card-title">
+                            <a :href='"/ads/adDetails/"+ad.id'>
+                                {{ad.title}}</a>
                         </div>
-                        </div>
-                <% }; %>
-                </div>
-            </div>
-
-            <div class="col-md-4 right-container card" style="padding: 5em 2em; background-color:#F1F6F5;">
-                <h1 style="text-align: center;">Search</h1>
-                <hr>
-                <form action="/searchResult" method="POST">
-                    <div class="row" style="padding: 1em 1em;">
-                        <div class="input-group mb-3">
-							<div class="input-group-prepend">
-								<span class="input-group-text"><i class="fa fa-key"></i></span>
-							</div>
-							<input type="text" name="title" class="form-control" placeholder="Keywords Search...">
-						</div>
+                        <br>
+                        <p class="card-text">{{ad.jobType}}</p>
+                        <p class="card-text" >{{ad.adType}} (for testing ONLY)</p>
+                        <time class="card-text">{{ad.createdAt}}</time>
+                        <br><br>
                     </div>
 
-                    <div class="row" style="padding: 1em 1em;">
-                        <div class="input-group mb-3">
-                            <div class="input-group-prepend">
-                                <label class="input-group-text" for="inputGroupSelect01"><i class="fa fa-user"></i></label>
-                            </div>
-                            <select class="browser-default custom-select" id="adType" name="adType">
-                                <option selected value="">Finding...</option>
-                                <option value="Job">Job</option>
-                                <option value="Availability">Canadidate</option>
-                            </select>
-                            </div>
-                    </div>
-
-                    <div class="row" style="padding: 1em 1em;">
-                        <div class="input-group mb-3">
-                            <div class="input-group-prepend">
-                                <label class="input-group-text" for="inputGroupSelect01"><i class="fa fa-calendar" aria-hidden="true"></i></label>
-                            </div>
-                            <select class="browser-default custom-select" id="scheduleOptions" name="scheduleOptions">
-                                <option selected value="">Schedule...</option>
-                                <option value="Regular">Regular</option>
-                                <option value="One-off">One-off</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <div class="row" style="padding: 1em 1em;">
-                        <div class="input-group mb-3">
-                            <div class="input-group-prepend">
-                                <label class="input-group-text" for="inputGroupSelect01">Care Types</label>
-                            </div>
-                            <select class="browser-default custom-select" id="jobType" name="jobType">
-                                <option selected value="">Choose...</option>
-                                <option value="Elderly Care">Elderly Care</option>
-                                <option value="Child Care">Child Care</option>
-                                <option value="Medical Care">Medical Care</option>
-                                <option value="Personal Care">Personal Care</option>
-                                <option value="HouseKeeper">HouseKeeper</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <div class="row" style="padding: 1em 1em;">
-                        <input type="hidden" name="_csrf" id="_csrf" value="<%- _csrf %>" />
-                        <button type="submit" class="btn btn-info wrn-btn" style="margin-left: auto;">Search <span class="fa fa-search" aria-hidden="true"></span></button>
-                    </div>
-                </form>
+                </a>
             </div>
         </div>
+        <p></p>
+        <br><br><br>
 
-        <nav aria-label="Page navigation" style="padding: 1em 0;">
-            <ul class="pagination justify-content-center">
-                <li class="page-item"><a class="page-link" href="#" id="firstLink"><i class="fa fa-angle-double-left"></i></a></li>
-                <li class="page-item" id="previousParent">
-                    <a class="page-link" id="previousButton"><i class="fa fa-angle-left"></i></a>
-                </li>
-                <li class="page-item"><a class="page-link" href="#" id="previousLink">2</a></li>
-                <li class="page-item active"><a class="page-link" href="#" id="currentLink">3</a></li>
-                <li class="page-item"><a class="page-link" href="#" id="nextLink">4</a></li>
-                <li class="page-item" id="nextParent">
-                    <a class="page-link" id="nextButton"><i class="fa fa-angle-right"></i></a>
-                </li>
-                <li class="page-item"><a class="page-link" href="#" id="lastLink"><i class="fa fa-angle-double-right"></i></a></li>
-            </ul>
-        </nav>
+        <h5 class="title is-5" style="text-align: center;">Total Result(s) Found: {{total}}</h5>
+        <b-pagination :total="total" v-model="current" :range-before="rangeBefore" :range-after="rangeAfter"
+            :order="order" :size="size" :simple="isSimple" :rounded="isRounded" :per-page="perPage"
+            :icon-prev="prevIcon" :icon-next="nextIcon" aria-next-label="Next page" aria-previous-label="Previous page"
+            aria-page-label="Page" aria-current-label="Current page" @change="fetchData()" v-if="haveResult">
+        </b-pagination>
+        
+        <div class="columns is-centered" v-if="!haveResult">
+            <div class="column is-half" style="text-align: center;">
+                <br>
+                <strong>No Result Found</strong>
+            </div>
+        </div>
+    </div>
+    <div class="column is-one-third card" style="padding: 5em 2em; background-color:#F1F6F5;">
+        <h1 class="title" style="text-align: center;">Search</h1>
+        <b-field label="title">
+            <b-input v-model="title" placeholder="Keywords search..."></b-input>
+        </b-field>
+        <b-field label="Ad Type" style="padding-top: 1em;">
+            <b-select v-model="adType">
+                <option value="">Pick a service you want...</option>
+                <option v-for="adType in adTypes" :value="adType">
+                    {{ adType }}
+                </option>
+            </b-select>
+        </b-field>
+        <b-field label="Schedule Options">
+            <b-select v-model="scheduleOptions">
+                <option value="">The Frequency of work...</option>
+                <option v-for="scheduleOptions in schedule_options" :value="scheduleOptions">
+                    {{ scheduleOptions }}
+                </option>
+            </b-select>
+        </b-field>
+        <b-field label="Care Type" style="padding-bottom:1em;">
+            <b-select v-model="jobType">
+                <option value="">Which type of care you're looking for?</option>
+                <option v-for="jobType in jobTypes" :value="jobType">
+                    {{ jobType }}
+                </option>
+            </b-select>
+        </b-field>
+        <div class="control">
+            <b-button type="is-success" @click="fetchData()" style="float: right;">Submit</button>
+        </div>
+    </div>
+</div>
 
-    </section>
+<script src="https://unpkg.com/vue@2"></script>
+<!-- Full bundle -->
+<script src="https://unpkg.com/buefy/dist/buefy.min.js"></script>
 
-</body>
+<!-- Individual components -->
+<script src="https://unpkg.com/buefy/dist/components/input"></script>
+
 <script>
-    function buildLinks() {
+    new Vue({
+        el: '#search',
+        data: {
+            total: 0,
+            ads: [],
+            imgs: [],
+            current: 1,
+            perPage: 3,
+            rangeBefore: 1,
+            rangeAfter: 1,
+            order: '',
+            size: '',
+            isSimple: false,
+            isRounded: false,
+            prevIcon: 'chevron-left',
+            nextIcon: 'chevron-right',
 
-        var previousButton = document.getElementById("previousButton");
-        var nextButton = document.getElementById("nextButton");
-        var currentLink = document.getElementById("currentLink");
-        var previousLink = document.getElementById("previousLink");
-        var nextLink = document.getElementById("nextLink");
-        var firstLink = document.getElementById("firstLink");
-        var lastLink = document.getElementById("lastLink");
+            title: '',
+            adType: '',
+            jobType: '',
+            scheduleOptions: '',
 
-        var total = parseInt("<%= total %>");
-        var perPage = Math.max(parseInt("<%= req.query.perPage %>"), 6) || 6;
-        var current = Math.max(parseInt("<%= req.query.current %>"), 1) || 1;
+            jobTypes: ["HouseKeeper", "Medical Care", "Elderly Care", "Child Care", "Personal Care"],
+            adTypes: ["Job", "Availability"],
+            schedule_options: ["one-off", "regular"]
+        },
+        mounted: function () {
+            this.fetchData();
+        },
+        computed: {
+            haveResult: function() { return this.total > 0 }
+        },
+        methods: {
+            fetchData: async function () {
 
-        var baseUrl = "/search?perPage=" + perPage + "&current=";
+                var response = await fetch('/search?title=' + this.title + '&adType=' + this.adType + '&scheduleOptions=' + this.scheduleOptions + '&jobType=' + this.jobType + '&perPage=' + this.perPage + '&current=' + this.current);
 
-        firstLink.href = baseUrl + 1;
-        previousButton.href = baseUrl + (current - 1);
-        previousLink.href = baseUrl + (current - 1);
-        currentLink.href = baseUrl + current;
-        nextLink.href = baseUrl + (current + 1);
-        nextButton.href = baseUrl + (current + 1);
-        lastLink.href = baseUrl + Math.ceil(total / perPage);
+                if (response.ok) {
+                    var json = await response.json();
+                    this.ads = json.ads;
+                    this.imgs = json.imgs;
+                    this.total = parseInt(json.total);
+                    console.log(img[1].url);
 
-        previousLink.innerHTML = current - 1;
-        currentLink.innerHTML = current;
-        nextLink.innerHTML = current + 1;
-        // lastLink.innerHTML = Math.ceil(total / perPage); 
-
-        if (current <= 1) {
-            // previousButton.setAttribute("disabled", true);
-            document.getElementById("previousParent").classList.add("disabled");
-            previousButton.href = "";
-            previousLink.style.display = "none";
-        }
-        // else{
-        //     alert("touch 1")
-        //     lastLink.style.display = "none";
-        //     firstLink.innerText = "First Page";
-        //     firstLink.style.display = "";
-        // }
-
-        if (current >= Math.ceil(total / perPage)) {
-            // nextButton.setAttribute("disabled", true);
-            document.getElementById("nextParent").classList.add("disabled");
-            nextButton.href = "";
-            nextLink.style.display = "none";
-        }
-        // else{
-        //     alert("touch 2")
-        //     firstLink.style.display = "none";
-        //     lastLink.innerText = "Last Page";
-        //     lastLink.style.display = "";
-        // }
-    }
-
-    buildLinks();
-
+                } else {
+                    alert(response.statusText);
+                }
+            }
+        },
+    })
 </script>
 <script>
     function tryAgain(e) 

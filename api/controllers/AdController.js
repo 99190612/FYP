@@ -134,29 +134,41 @@ module.exports = {
     },
 
     search: async function(req, res){
-        if (req.method == "GET"){
-            var perPage = Math.max(req.query.perPage, 6) || 6;
+        if (req.wantsJSON) {
 
-            var allAds = await Ad.find({
+            var whereClause = {};
+
+            if (req.query.title) whereClause.title = { contains: req.query.title };
+            if (req.query.adType) whereClause.adType = req.query.adType;
+            if (req.query.scheduleOptions) whereClause.scheduleOptions = req.query.scheduleOptions;
+            if (req.query.jobType) whereClause.jobType = req.query.jobType;
+            
+            var perPage = Math.max(req.query.perPage, 3) || 3;
+
+            var someAds = await Ad.find({
+                where: whereClause,
                 limit: perPage,
-                skip: perPage * (Math.max(req.query.current - 1, 0) || 0)
-            });
-
+                skip: perPage * (Math.max(req.query.current - 1, 0) || 0),
+            })
             let picArr = [];
-            allAds.forEach((item) => picArr.push(item.application_pic));
+            someAds.forEach((item) => picArr.push(item.application_pic));
             var thoseFile = await Files.find({
                 where: picArr,
                 sort: 'id',
             });
 
-            var count = await Ad.count();
-            allAds.forEach((item)  =>  item.createdAt = new Date(item.createdAt).toLocaleDateString());
-            return res.view("pages/dashboard/search", { ads: allAds, imgs: thoseFile, total: count });
-            }
+            var count = await Ad.count({
+                where: whereClause
+            });
+
+            someAds.forEach((item)  =>  item.createdAt = new Date(item.createdAt).toLocaleDateString());
+            return res.json({ ads: someAds, imgs: thoseFile, total: count });
+        }
+        return res.view('pages/dashboard/search');
     },
 
     searchResult: async function(req, res){
-            // var perPage = Math.max(req.query.perPage, 6) || 6;
+            var perPage = Math.max(req.query.perPage, 6) || 6;
 
             formData = [req.body.keywords, req.body.adType, req.body.scheduleOptions, req.body.jobType];
             console.log("passing search results --->>> " + formData);
@@ -183,6 +195,7 @@ module.exports = {
             someAds.forEach((item)  =>  item.createdAt = new Date(item.createdAt).toLocaleDateString());
             return res.view("pages/dashboard/searchResult", { ads: someAds, imgs: thoseFile, total: count });
         },
+        
 
     question: async function(req, res){
         if (req.method == "GET") return res.view("pages/dashboard/question");
