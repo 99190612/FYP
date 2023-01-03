@@ -163,14 +163,9 @@ without necessarily having a billing card.`
     //  ╔═╗╔═╗╔═╗╔═╗╔═╗╦╔═╗╔╦╗╦╔═╗╔╗╔╔═╗
     //  ╠═╣╚═╗╚═╗║ ║║  ║╠═╣ ║ ║║ ║║║║╚═╗
     //  ╩ ╩╚═╝╚═╝╚═╝╚═╝╩╩ ╩ ╩ ╩╚═╝╝╚╝╚═╝
-    adOwn: {
-      collection: 'ad',
-      via: 'adCreator'
-    },
-
-    filesOwn:{
-      collection: 'files',
-      via: 'file_creator'
+    reg_ads:{
+      collection: 'Ad',
+      via: 'reg_user'
     },
 
 

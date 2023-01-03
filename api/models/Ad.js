@@ -89,10 +89,12 @@ module.exports = {
     //  ╔═╗╔═╗╔═╗╔═╗╔═╗╦╔═╗╔╦╗╦╔═╗╔╗╔╔═╗
     //  ╠═╣╚═╗╚═╗║ ║║  ║╠═╣ ║ ║║ ║║║║╚═╗
     //  ╩ ╩╚═╝╚═╝╚═╝╚═╝╩╩ ╩ ╩ ╩╚═╝╝╚╝╚═╝
-    adCreator: {
-      collection:'User',
-      via: 'adOwn'
-    }
+    reg_user:{
+      collection:'user',
+      via: 'reg_ads'
+    },
+
+    
   },
 
 };

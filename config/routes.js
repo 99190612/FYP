@@ -23,6 +23,7 @@ module.exports.routes = {
   'POST /ads/postAvailability': 'AdController.postAvailability',
 
   'GET /ads/adDetails/:id': 'AdController.details',
+  'POST /user/application/add/:fk': 'UserController.add',
   'GET /allApplication': 'AdController.show',
 
   'GET /viewJob': 'AdController.displayJob',
@@ -53,6 +54,7 @@ module.exports.routes = {
   'GET /account':            { action: 'account/view-account-overview' },
   'GET /account/password':   { action: 'account/view-edit-password' },
   'GET /account/profile':    { action: 'account/view-edit-profile' },
+
 
 
   //  ╔╦╗╦╔═╗╔═╗  ╦═╗╔═╗╔╦╗╦╦═╗╔═╗╔═╗╔╦╗╔═╗   ┬   ╔╦╗╔═╗╦ ╦╔╗╔╦  ╔═╗╔═╗╔╦╗╔═╗
