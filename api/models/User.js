@@ -165,9 +165,8 @@ without necessarily having a billing card.`
     //  ╩ ╩╚═╝╚═╝╚═╝╚═╝╩╩ ╩ ╩ ╩╚═╝╝╚╝╚═╝
     reg_ads:{
       collection: 'Ad',
-      via: 'reg_user'
+      via: 'reg_user',
     },
-
 
   },
 

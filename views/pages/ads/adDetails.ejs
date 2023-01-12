@@ -9,12 +9,13 @@
             </div>
             <div class="card-body">
                 <div class="row">
-                    <button id="submitAppl" class="btn btn-success" style="margin-left: auto; padding: 0 2em;" onclick="openform()"></button>
+                    <button id="submitAppl" class="btn btn-success" style="margin-left: auto; padding: 0 2em;" onclick="openform('<%= ad.adType %>')"></button>
                     <div class="form-popup" id="myForm" style="display: none; position: fixed; bottom: 0; right: 15px; border: 3px solid #f1f1f1; z-index: 9;">
                         <form id="formData" onsubmit="return false" class="form-container" style="padding: 2em; background-color: white;">
-                            <h3>Sent Interview Request</h3>
+                            <h3 id="applTitle">Sent Interview Request</h3>
                             <br>
                             <input type="hidden" name="_csrf" id="_csrf" value="<%- _csrf %>" />
+                            <input type="hidden" id="adType" name="adType" value="<%- ad.adType %>">
                             <!-- form content -->
                             <div class="form-group">
                                 <button type="button" id="add_details_button" class="btn btn-info add_details_button" ><i class="fa fa-plus"></i> Add Date</button>
@@ -39,7 +40,7 @@
                                     </table>
                                 </div>
                             </div>
-                            <button id="register" type="submit" class="col btn btn-success" style="margin-bottom: 0.5em;" onclick="regAppl('<%= ad.id %>', '<%= req.session.userId %>')">Send</button>
+                            <button id="register" type="submit" class="col btn btn-success" style="margin-bottom: 0.5em;" onclick="regAppl('<%= ad.id %>')">Send</button>
                             <button type="button" class="col btn cancel btn-danger" onclick="closeForm()">Close</button>
                         </form>
                     </div>
@@ -190,31 +191,49 @@
 </body>
 
 <script>
-    btnChange("<%= ad.adType %>");
-    function btnChange(adType){
+    btnChange("<%= ad.adType %>", "<%= ad.owner %>", "<%= req.session.userId %>","<%= regUser %>");
+    function btnChange(adType, adOwner, userId, regUser){
+        if(adOwner == userId){
+            // hide the application button if the ads belongs to this user
+                document.getElementById("submitAppl").style.visibility = "hidden"; 
+        }
+        
         if(adType == 'Availability'){
             document.getElementById("submitAppl").innerText = 'Send Interview Request';
         }else{
             document.getElementById("submitAppl").innerText = 'Apply';
         }
+
+        // if user already register the ads...
+        var registered = regUser.indexOf(userId)
+        if(registered != -1){
+            document.getElementById("submitAppl").innerText = 'Submitted';
+            document.getElementById("submitAppl").disabled = true;
+        }
+
     }
 
-    function openform() {
-        document.getElementById("myForm").style.display = "block";
-        $(document).ready(function() {
-        var count=1;
-    // Append table with add row form on add new button click
-        $(".add_details_button").click(function(){    //button click to add row
-            var row = '<tr>' +
-                '<td><input id="date'+count+'" name="interviewTimeslot"  class="form-control" type="datetime-local" required/></td>' + '<td><button type="button" class="delete btn btn-dark">Delete</button></td>' + '</tr>';
-            count=count+1;
-        $("#details").append(row);
-        });
+    function openform(adType) {
+        if(adType == 'Availability'){
+            document.getElementById("myForm").style.display = "block";
+            $(document).ready(function() {
+            var count=1;
+            // Append table with add row form on add new button click
+            $(".add_details_button").click(function(){    //button click to add row
+                var row = '<tr>' +
+                    '<td><input id="date'+count+'" name="interviewTimeslot"  class="form-control" type="datetime-local" required/></td>' + '<td><button type="button" class="delete btn btn-dark">Delete</button></td>' + '</tr>';
+                count=count+1;
+            $("#details").append(row);
+            });
     // Delete row on delete button click
-        $(document).on("click", ".delete", function() {
-            $(this).parents("tr").remove();
-        });
-    });
+            $(document).on("click", ".delete", function() {
+                $(this).parents("tr").remove();
+                });
+            });
+        }else if(adType == 'Job'){
+            // show another form
+
+        }
     }
 
     function closeForm() {
@@ -279,13 +298,12 @@
 </script>
 
 <script>
-    async function regAppl(adId, username){
+    async function regAppl(adId){
         
-        var r = confirm("Confirm send?");
+        var r = confirm("Confirm to send?");
         
         if (r) {          
             var form = document.getElementById("formData");
-            console.log(form);
             var formData = new FormData(form);
             var response = await fetch("/user/application/add/" + adId, {
                 method: "POST", 

@@ -87,7 +87,16 @@ module.exports = {
             if (!thatAd) return res.notFound();
             thatAd.updatedAt = new Date(thatAd.updatedAt); 
             var thatUser = await User.findOne(thatAd.owner);
-            return res.view("pages/ads/adDetails", { ad: thatAd, img: thatFile, user: thatUser});
+
+            var ad = await Ad.findOne({
+                id: thatAd.id,
+            }).populate("reg_user");
+        
+            let idArr = [];
+            ad.reg_user.forEach((item) => idArr.push(item.id));
+            console.log("regUser Array return: -----> " + idArr)
+
+            return res.view("pages/ads/adDetails", { ad: thatAd, img: thatFile, user: thatUser, regUser: idArr});
         }
     },
     
