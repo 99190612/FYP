@@ -17,6 +17,12 @@ parasails.registerPage('edit-profile', {
     formRules: {
       fullName: {required: true},
       emailAddress: {required: true, isEmail: true},
+      gender: {required: false},
+      phone: {required: false},
+      age: {required: false},
+      shortDesc: {required: false},
+      pastExperience: {required: false},
+
     },
 
     // Server error state for the form
@@ -30,6 +36,11 @@ parasails.registerPage('edit-profile', {
     // Set the form data.
     this.formData.fullName = this.me.fullName;
     this.formData.emailAddress = this.me.emailChangeCandidate ? this.me.emailChangeCandidate : this.me.emailAddress;
+    this.formData.gender = this.me.gender;
+    this.formData.phone = this.me.phone;
+    this.formData.age = this.me.age;
+    this.formData.shortDesc = this.me.shortDesc;
+    this.formData.pastExperience = this.me.pastExperience;
   },
   mounted: async function() {
     //…

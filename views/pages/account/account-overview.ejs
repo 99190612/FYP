@@ -24,6 +24,34 @@
         <span v-if="me.emailStatus === 'unconfirmed' || me.emailStatus === 'change-requested'" class="badge badge-pill badge-warning">Unverified</span>
       </div>
     </div>
+
+    <div class="row" >
+      <button id="moreBtn" type="button" class="btn btn-outline-info" style="margin: auto;" onclick="document.getElementById('moreInfo').style.display=''; document.getElementById('moreBtn').style.display='none'">More <i class="fa fa-plus" aria-hidden="true"></i></button>
+    </div>
+
+    <div id="moreInfo" style="display: none;">
+      <div class="row">
+        <div class="col-3">Gender:</div>
+        <div class="col"><strong>{{me.gender}}</strong></div>
+      </div>
+      <div class="row">
+        <div class="col-3">Age:</div>
+        <div class="col"><strong>{{me.age}}</strong></div>
+      </div>
+      <div class="row">
+        <div class="col-3">Phone:</div>
+        <div class="col"><strong>{{me.phone}}</strong></div>
+      </div>
+      <div class="row">
+        <div class="col-3">Short Description:</div>
+        <div class="col"><strong>{{me.shortDesc}}</strong></div>
+      </div>
+      <div class="row">
+        <div class="col-3">Past Experience:</div>
+        <div class="col"><strong>{{me.pastExperience}}</strong></div>
+      </div>  
+    </div>
+
     <hr/>
     <div class="row mb-3">
       <div class="col-sm-6">

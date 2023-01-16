@@ -52,6 +52,7 @@
           <a style="cursor: pointer; padding-right: 2em;" class="navbar-brand mr-0" href="/"><img style="height: 35px;" class="logo" alt="HomeCare logo" src="/images/logo.jpg"/></a>
         <!-- LOGGED-IN NAVIGATION -->
         <% if(me) { %>
+          <% if(req.me.role == 'member') { %>
           <div class="nav-item dropdown d-none d-sm-block">
             <a class="nav-link dropdown-toggle" id="header-account-menu-link" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">View</a>
             <div class="dropdown-menu" aria-labelledby="header-account-menu-link">
@@ -63,13 +64,40 @@
           <a class="nav-item nav-link" href="/search">Search</a>
           <a class="nav-item nav-link" href="/allApplication">All Applications</a>
         </div>
+          <% } else if(req.me.role == 'admin'){ %>
+          <!-- admin navbar -->
+          <div class="nav-item dropdown d-none d-sm-block">
+            <a class="nav-link dropdown-toggle" id="header-account-menu-link" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">View</a>
+            <div class="dropdown-menu" aria-labelledby="header-account-menu-link">
+              <a class="dropdown-item" href="/viewJob">Jobs</a>
+              <a class="dropdown-item" href="/viewCanadidate">Canadidates</a>
+            </div>
+          </div>
+          <a class="nav-item nav-link" href="/search">Search</a>
+          <a class="nav-item nav-link" href="/">Account Management</a>
+        </div>
+          <% } else if(req.me.role == 'officer'){ %>
+          <!-- officer navbar -->
+          <div class="nav-item dropdown d-none d-sm-block">
+            <a class="nav-link dropdown-toggle" id="header-account-menu-link" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">View</a>
+            <div class="dropdown-menu" aria-labelledby="header-account-menu-link">
+              <a class="dropdown-item" href="/viewJob">Jobs</a>
+              <a class="dropdown-item" href="/viewCanadidate">Canadidates</a>
+            </div>
+          </div>
+            <a class="nav-item nav-link" href="/search">Search</a>
+            <a class="nav-item nav-link" href="/">Ads Approval</a>
+          </div>
+          <% } %>
         <div class="navbar-nav flex-row">
+          <a class="nav-item btn btn-info" href="#"><%= req.me.role %></a>
           <a class="nav-item nav-link ml-2 ml-md-0 mr-2 mr-md-0" href="/contact">Help</a>
           <!-- Only in desktop nav -->
           <div class="nav-item dropdown d-none d-sm-block">
             <a class="nav-link dropdown-toggle" id="header-account-menu-link" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Account</a>
-            <div style="left: auto; right: 0;" class="dropdown-menu" aria-labelledby="header-account-menu-link">
+            <div  style="left: auto; right: 0;" class="dropdown-menu" aria-labelledby="header-account-menu-link">
               <a class="dropdown-item" href="/account">My Profile</a>
+              <a class="dropdown-item" href="/account/notification">Notifications</a>
               <a class="dropdown-item" href="/logout">Sign out</a>
             </div>
           </div>
@@ -106,6 +134,8 @@
         </div>
       </div>
       <% } %>
+
+      
 
       <%- body %>
 

@@ -22,6 +22,54 @@
       </div>
       <div class="row">
         <div class="col-sm-6">
+          <div class="form-group">
+            <label for="gender">Gender</label>
+            <select class="form-control" id="gender" name="gender" v-model.trim="formData.gender">
+              <option id="Empty" value="Empty">Empty</option>
+              <option id="F" value="F">F</option>
+              <option id="M" value="M">M</option>
+          </select>
+          </div>
+        </div>
+
+        <div class="col-sm-6">
+          <div class="form-group">
+            <label for="age">Age</label>
+            <input class="form-control" id="age" name="age" type="number" v-model.trim="formData.age" placeholder="Numbers only" min="18" max="100">
+            <div class="invalid-feedback">Please enter a vaild number.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-sm-6">
+          <div class="form-group">
+            <label for="phone">Phone</label>
+            <input class="form-control" id="phone" name="phone" type="number" v-model.trim="formData.phone" placeholder="Enter a phone number for contact..">
+            <div class="invalid-feedback">Please enter a vaild number.</div>
+          </div>
+        </div>
+
+        <div class="col-sm-6">
+          <div class="form-group">
+            <label for="shortDesc">Short Description</label>
+            <input class="form-control" id="shortDesc" name="shortDesc" type="text" v-model.trim="formData.shortDesc" placeholder="Short Introduction">
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-sm-6">
+          <div class="form-group">
+            <label for="pastExperience">Past Experience</label>
+            <input class="form-control" id="pastExperience" name="pastExperience" type="text" v-model.trim="formData.pastExperience" placeholder="Any Experience you would like to include">
+          </div>
+        </div>
+
+      </div>
+
+      <div class="row">
+        <div class="col-sm-6">
           <cloud-error v-if="cloudError === 'emailAlreadyInUse'">There is already an account using that email address.</cloud-error>
           <cloud-error v-if="cloudError"></cloud-error>
         </div>
