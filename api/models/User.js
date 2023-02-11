@@ -59,7 +59,7 @@ email status until they click the link in the confirmation email.`
     role: {
       type: "string",
       isIn: ["admin", "officer", "member", "visitor"],
-      defaultsTo: "visitor",
+      defaultsTo: "member",
     },
 
     gender:{
@@ -69,7 +69,8 @@ email status until they click the link in the confirmation email.`
     },
 
     age:{
-      type: "number",
+      type: "string",
+      defaultsTo: "empty",
     },
 
     phone:{

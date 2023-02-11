@@ -38,4 +38,10 @@ module.exports = {
         
         return res.status(204).send();
     },
+
+    profile: async function (req, res) {
+            var thatUser = await User.findOne(req.params.id);
+            if (!thatUser) return res.notFound();
+        return res.view("pages/account/profile", { user: thatUser});
+    },
 };

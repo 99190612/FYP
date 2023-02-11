@@ -34,6 +34,12 @@ module.exports = {
       isIn: ["waiting for reply","scheduling time", "confirmed time", "approved", "rejected"],
     },
 
+    notiStatus: {
+      type: 'string',
+      isIn: ["read", "new"],
+      defaultsTo: 'new',
+    },
+
     //  ╔═╗╔╦╗╔╗ ╔═╗╔╦╗╔═╗
     //  ║╣ ║║║╠╩╗║╣  ║║╚═╗
     //  ╚═╝╩ ╩╚═╝╚═╝═╩╝╚═╝

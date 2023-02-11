@@ -24,6 +24,7 @@ module.exports.routes = {
 
   'GET /ads/adDetails/:id': 'AdController.details',
   'POST /user/application/add/:fk': 'UserController.add',
+  'GET /user/profile/:id': 'UserController.profile',
   'GET /allApplication': 'AdController.show',
 
   'GET /viewJob': 'AdController.displayJob',
@@ -32,6 +33,10 @@ module.exports.routes = {
   'GET /search': 'AdController.search',
   'POST /searchResult': 'AdController.searchResult',
   'GET /question': 'AdController.question',
+
+  'GET /account/notification': 'ApplicationController.notification',
+
+  
 
 
 

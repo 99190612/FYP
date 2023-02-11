@@ -1,0 +1,80 @@
+
+<body>
+    <div class="row">
+        <div class="col-lg-9" style="margin: auto;">
+            <div class="box shadow-sm rounded bg-white mb-3">
+                <div class="box-title border-bottom p-3">
+                    <h6 class="m-0">Notifications <i class="fa fa-bell text-muted"></i></h6>
+                </div>
+                <div class="box-body p-0">
+                    <% for (let i = 0; i < noti.length; i++) { %>
+                        <% if(noti[i].reg_target == req.session.userId) { %>
+                            <div class="p-3 d-flex align-items-center bg-light border-bottom osahan-post-header">
+                                <div class="font-weight-bold mr-3">
+                                    <div class="text-truncate"><%= noti[i].reg_user %> send you a request.</div>
+                                    <div class="small"></div>
+                                </div>
+                                <span class="ml-auto mb-auto">
+                                    <div class="btn-group">
+                                        <button type="button" class="btn btn-light btn-sm rounded" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <i class="mdi mdi-dots-vertical"></i>
+                                        </button>
+                                        <div class="dropdown-menu dropdown-menu-right">
+                                            <button class="dropdown-item" type="button"><i class="mdi mdi-delete"></i> Details </button>
+                                            <button class="dropdown-item" type="button"><i class="mdi mdi-close"></i> Mark as Read</button>
+                                        </div>
+                                    </div>
+                                    <br />
+                                    <div class="text-right text-muted pt-1"><%= noti[i].createdAt %></div>
+                                </span>
+                            </div>
+                        <% }; %>
+                        <% if(noti[i].reg_user == req.session.userId) { %>
+                            <div class="p-3 d-flex align-items-center bg-light border-bottom osahan-post-header">
+                                <div class="font-weight-bold mr-3">
+                                    <div class="text-truncate">Your application sent to <%= noti[i].reg_target %> had been replied </div>
+                                    <div class="small"></div>
+                                </div>
+                                <span class="ml-auto mb-auto">
+                                    <div class="btn-group">
+                                        <button type="button" class="btn btn-light btn-sm rounded" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <i class="mdi mdi-dots-vertical"></i>
+                                        </button>
+                                        <div class="dropdown-menu dropdown-menu-right">
+                                            <button class="dropdown-item" type="button"><i class="mdi mdi-delete"></i> Details </button>
+                                            <button class="dropdown-item" type="button"><i class="mdi mdi-close"></i> Mark as Read</button>
+                                        </div>
+                                    </div>
+                                    <br />
+                                    <div class="text-right text-muted pt-1"><%= noti[i].createdAt %></div>
+                                </span>
+                            </div>
+                        <% }; %>
+                    <% }; %>
+                </div>
+                <div class="p-3 d-flex align-items-center osahan-post-header">
+                    <div class="font-weight-bold mr-3">
+                        <div class="mb-2">We found a job at askbootstrap Ltd that you may be interested in Vivamus imperdiet venenatis est...</div>
+                        <button type="button" class="btn btn-outline-success btn-sm">View Ads</button>
+                    </div>
+                    <span class="ml-auto mb-auto">
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-light btn-sm rounded" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="mdi mdi-dots-vertical"></i>
+                            </button>
+                            <div class="dropdown-menu dropdown-menu-right">
+                                <button class="dropdown-item" type="button"><i class="mdi mdi-delete"></i> Delete</button>
+                                <button class="dropdown-item" type="button"><i class="mdi mdi-close"></i> Turn Off</button>
+                            </div>
+                        </div>
+                        <br />
+                        <div class="text-right text-muted pt-1">4d</div>
+                    </span>
+                </div>
+
+            </div>
+    </div>
+    
+</body>
+
+
