@@ -16,7 +16,7 @@ module.exports = {
       type: 'string',
       required: true,
       unique: true,
-      isEmail: true,
+      isEmail: true,  
       maxLength: 200,
       example: 'mary.sue@example.com'
     },

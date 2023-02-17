@@ -63,14 +63,18 @@ module.exports.bootstrap = async function() {
   await User.createEach([
     { emailAddress: 'admin@example.com', fullName: 'Ryan Dahl', role: 'admin', password: await sails.helpers.passwords.hashPassword('123456') },
     { emailAddress: 'wingsze1999@example.com', fullName: 'WingSze LEE', role: 'member', password: await sails.helpers.passwords.hashPassword('123456') },
-    { emailAddress: 'test@example.com', fullName: 'Crystal LEE', role: 'member', password: await sails.helpers.passwords.hashPassword('123456') },
+    { emailAddress: 'test@example.com', fullName: 'Crystal Ng', role: 'member', password: await sails.helpers.passwords.hashPassword('123456') },
     { emailAddress: 'anna@gmail.com', fullName: 'Anna Wong', role: 'officer', password: await sails.helpers.passwords.hashPassword('123456') },
+    { emailAddress: 'winnie@gmail.com', fullName: 'Winnie Fong', role: 'member', password: await sails.helpers.passwords.hashPassword('123abc') },
+    { emailAddress: 'henry123@gmail.com', fullName: 'Henry Leung', role: 'member', password: await sails.helpers.passwords.hashPassword('123abc') },
   ]);
 
     const s1 = await User.findOne({emailAddress: "admin@example.com"});
     const s2 = await User.findOne({emailAddress: "wingsze1999@example.com"});
     const s3 = await User.findOne({emailAddress: "test@example.com"});
     const s4 = await User.findOne({emailAddress: "anna@gmail.com"});
+    const s5 = await User.findOne({emailAddress: "winnie@gmail.com"});
+    const s6 = await User.findOne({emailAddress: "henry123@gmail.com"});
 
   await Files.createEach([
     {fd:"/Users/wingsze/Project2/assets/images/uploads/3fab8b41-0eae-4d42-9410-f37971f2901d.jpeg",type:"image/jpeg", filename:"women7.jpeg", url:"/images/uploads/3fab8b41-0eae-4d42-9410-f37971f2901d.jpeg",uploaded_by:s1.id,},
@@ -83,8 +87,8 @@ module.exports.bootstrap = async function() {
     {fd:"/Users/wingsze/Project2/assets/images/uploads/b955d647-f5b5-47c7-aef0-df8d220c1c5d.webp",type:"image/webp",filename:"house2.webp",url:"/images/uploads/b955d647-f5b5-47c7-aef0-df8d220c1c5d.webp",uploaded_by:s1.id},
     {fd:"/Users/wingsze/Project2/assets/images/uploads/fe949782-d219-412f-bafd-e8e4c0be8299.webp",type:"image/webp",filename:"house1.webp",url:"/images/uploads/fe949782-d219-412f-bafd-e8e4c0be8299.webp",uploaded_by:s2.id},
     {fd:"/Users/wingsze/Project2/assets/images/uploads/20bf25a9-7330-435b-847c-d3f0f39f2046.webp",type:"image/webp",filename:"child1.webp",url:"/images/uploads/20bf25a9-7330-435b-847c-d3f0f39f2046.webp",uploaded_by:s3.id},
-    {fd:"/Users/wingsze/Project2/assets/images/uploads/6ec6483d-7d9b-4faf-83cd-ae9130108dd8.png",type:"image/png",filename:"patient.png",url:"/images/uploads/6ec6483d-7d9b-4faf-83cd-ae9130108dd8.png",uploaded_by:s1.id},
-    {fd:"/Users/wingsze/Project2/assets/images/uploads/85a2e34c-7767-4167-89bf-43411b4aac25.jpeg",type:"image/jpeg",filename:"office.jpeg",url:"/images/uploads/85a2e34c-7767-4167-89bf-43411b4aac25.jpeg",uploaded_by:s2.id},
+    {fd:"/Users/wingsze/Project2/assets/images/uploads/6ec6483d-7d9b-4faf-83cd-ae9130108dd8.png",type:"image/png",filename:"patient.png",url:"/images/uploads/6ec6483d-7d9b-4faf-83cd-ae9130108dd8.png",uploaded_by:s5.id},
+    {fd:"/Users/wingsze/Project2/assets/images/uploads/85a2e34c-7767-4167-89bf-43411b4aac25.jpeg",type:"image/jpeg",filename:"office.jpeg",url:"/images/uploads/85a2e34c-7767-4167-89bf-43411b4aac25.jpeg",uploaded_by:s6.id},
   ]);
 
   const f1 = await Files.findOne({filename:"women7.jpeg"});
@@ -111,8 +115,8 @@ module.exports.bootstrap = async function() {
     { jobType:"HouseKeeper",title:"cleaning the house",location:"Kwai Tsing",description:"Two bedrooms, one kitchen cleaning. Daily bases (weekdays only). ",salary:"180",contact:"testing@gmail.com",remarks:"Have 2 cats",adType:"Job",scheduleOptions:"regular",requestedTimeslot:["[morning][MON]","[morning][TUE]","[morning][WED]","[morning][THU]","[morning][FRI]"],availableTimeslot:null,adStatus:"wait for approval", application_pic:f8.id, owner: s1.id},
     { jobType:"HouseKeeper",title:"Room cleansing",location:"Kowloon City",description:"大掃除",salary:"200",contact:"93678942",remarks:"",adType:"Job",scheduleOptions:"one-off",requestedTimeslot:["2023-01-31T18:00","2023-01-31T18:00"],availableTimeslot:null,adStatus:"wait for approval", application_pic:f9.id, owner: s2.id},
     { jobType:"Child Care",title:"New born baby",location:"Wan Chai",description:"Take care of one month baby (shower)",salary:"300",contact:"53729826",remarks:"",adType:"Job",scheduleOptions:"regular",requestedTimeslot:["[evening][MON]","[evening][TUE]","[evening][WED]","[evening][THU]","[evening][FRI]","[evening][SAT]","[evening][SUN]"],availableTimeslot:null,adStatus:"wait for approval", application_pic:f10.id, owner: s3.id},
-    { jobType:"Personal Care",title:"Pick up from hospital",location:"Yau Tsim Mong",description:"Provide pick-up service (every Friday)",salary:"150",contact:"36547768",remarks:"",adType:"Job",scheduleOptions:"regular",requestedTimeslot:"[afternoon][FRI]",availableTimeslot:null,adStatus:"wait for approval", application_pic:f11.id, owner: s1.id},
-    { jobType:"Personal Care",title:"Office cleaning",location:"Tai Po",description:"Cleaning service for office area (3000 ft), need to work every weekday after office hour(4 hours)",salary:"160",contact:"housingAgencyHK@gmail.com",remarks:"",adType:"Job",scheduleOptions:"regular",requestedTimeslot:["[evening][MON]","[evening][TUE]","[evening][WED]","[evening][THU]","[evening][FRI]"],availableTimeslot:null,adStatus:"wait for approval", application_pic:f12.id, owner: s2.id},
+    { jobType:"Personal Care",title:"Pick up from hospital",location:"Yau Tsim Mong",description:"Provide pick-up service (every Friday)",salary:"150",contact:"36547768",remarks:"",adType:"Job",scheduleOptions:"regular",requestedTimeslot:"[afternoon][FRI]",availableTimeslot:null,adStatus:"wait for approval", application_pic:f11.id, owner: s5.id},
+    { jobType:"Personal Care",title:"Office cleaning",location:"Tai Po",description:"Cleaning service for office area (3000 ft), need to work every weekday after office hour(4 hours)",salary:"160",contact:"housingAgencyHK@gmail.com",remarks:"",adType:"Job",scheduleOptions:"regular",requestedTimeslot:["[evening][MON]","[evening][TUE]","[evening][WED]","[evening][THU]","[evening][FRI]"],availableTimeslot:null,adStatus:"wait for approval", application_pic:f12.id, owner: s6.id},
     
   ]);
 

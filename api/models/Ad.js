@@ -74,7 +74,7 @@ module.exports = {
     },
 
     application_pic: {
-      type: "number",
+      type: "string",
     },
 
     owner:{

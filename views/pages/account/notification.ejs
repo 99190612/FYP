@@ -1,80 +1,109 @@
-
-<body>
-    <div class="row">
-        <div class="col-lg-9" style="margin: auto;">
-            <div class="box shadow-sm rounded bg-white mb-3">
-                <div class="box-title border-bottom p-3">
-                    <h6 class="m-0">Notifications <i class="fa fa-bell text-muted"></i></h6>
-                </div>
-                <div class="box-body p-0">
-                    <% for (let i = 0; i < noti.length; i++) { %>
-                        <% if(noti[i].reg_target == req.session.userId) { %>
-                            <div class="p-3 d-flex align-items-center bg-light border-bottom osahan-post-header">
-                                <div class="font-weight-bold mr-3">
-                                    <div class="text-truncate"><%= noti[i].reg_user %> send you a request.</div>
-                                    <div class="small"></div>
-                                </div>
-                                <span class="ml-auto mb-auto">
-                                    <div class="btn-group">
-                                        <button type="button" class="btn btn-light btn-sm rounded" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            <i class="mdi mdi-dots-vertical"></i>
-                                        </button>
-                                        <div class="dropdown-menu dropdown-menu-right">
-                                            <button class="dropdown-item" type="button"><i class="mdi mdi-delete"></i> Details </button>
-                                            <button class="dropdown-item" type="button"><i class="mdi mdi-close"></i> Mark as Read</button>
-                                        </div>
-                                    </div>
-                                    <br />
-                                    <div class="text-right text-muted pt-1"><%= noti[i].createdAt %></div>
-                                </span>
-                            </div>
-                        <% }; %>
-                        <% if(noti[i].reg_user == req.session.userId) { %>
-                            <div class="p-3 d-flex align-items-center bg-light border-bottom osahan-post-header">
-                                <div class="font-weight-bold mr-3">
-                                    <div class="text-truncate">Your application sent to <%= noti[i].reg_target %> had been replied </div>
-                                    <div class="small"></div>
-                                </div>
-                                <span class="ml-auto mb-auto">
-                                    <div class="btn-group">
-                                        <button type="button" class="btn btn-light btn-sm rounded" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            <i class="mdi mdi-dots-vertical"></i>
-                                        </button>
-                                        <div class="dropdown-menu dropdown-menu-right">
-                                            <button class="dropdown-item" type="button"><i class="mdi mdi-delete"></i> Details </button>
-                                            <button class="dropdown-item" type="button"><i class="mdi mdi-close"></i> Mark as Read</button>
-                                        </div>
-                                    </div>
-                                    <br />
-                                    <div class="text-right text-muted pt-1"><%= noti[i].createdAt %></div>
-                                </span>
-                            </div>
-                        <% }; %>
-                    <% }; %>
-                </div>
-                <div class="p-3 d-flex align-items-center osahan-post-header">
-                    <div class="font-weight-bold mr-3">
-                        <div class="mb-2">We found a job at askbootstrap Ltd that you may be interested in Vivamus imperdiet venenatis est...</div>
-                        <button type="button" class="btn btn-outline-success btn-sm">View Ads</button>
-                    </div>
-                    <span class="ml-auto mb-auto">
-                        <div class="btn-group">
-                            <button type="button" class="btn btn-light btn-sm rounded" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="mdi mdi-dots-vertical"></i>
-                            </button>
-                            <div class="dropdown-menu dropdown-menu-right">
-                                <button class="dropdown-item" type="button"><i class="mdi mdi-delete"></i> Delete</button>
-                                <button class="dropdown-item" type="button"><i class="mdi mdi-close"></i> Turn Off</button>
-                            </div>
-                        </div>
-                        <br />
-                        <div class="text-right text-muted pt-1">4d</div>
-                    </span>
-                </div>
-
+<div class="row">
+    <div class="col-lg-9" style="margin: auto;">
+        <div class="box shadow-sm rounded bg-white mb-3">
+            <div class="box-title border-bottom p-3">
+                <h6 class="m-0">Notifications <i class="fa fa-bell text-muted"></i></h6>
             </div>
+            <div class="box-body p-0">
+                <% for (let i = 0; i < noti.length; i++) { %>
+                    <% if(noti[i].reg_target == req.session.userId) { %>
+                        <div class="p-3 d-flex align-items-center bg-light border-bottom osahan-post-header">
+                            <div class="font-weight-bold mr-3">
+                                <div class="text-truncate"><%= noti[i].reg_user_name %> send you a request.</div>
+                                <div class="small"></div>
+                            </div>
+                            <span class="ml-auto mb-auto">
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-light btn-sm rounded" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <i class="mdi mdi-dots-vertical"></i>
+                                    </button>
+                                    <div class="dropdown-menu dropdown-menu-right">
+                                        <button class="dropdown-item open-applDialog" type="button" data-id="abc" data-toggle="modal" data-target="#exampleModal"><i class="mdi mdi-eye"></i> Details </button>
+                                        <a href="/ads/adDetails/<%= noti[i].reg_ads %>" class="btn dropdown-item"><i class="mdi mdi-read"></i> Go to Ads Page</a>
+                                        <button class="dropdown-item" type="button"><i class="mdi mdi-close"></i> Mark as Read</button>
+                                    </div>
+                                </div>
+                                <br />
+                                <div class="text-right text-muted pt-1"><%= noti[i].createdAt %></div>
+                            </span>
+                        </div>
+                    <% }; %>
+                    <% if(noti[i].reg_user == req.session.userId) { %>
+                        <div class="p-3 d-flex align-items-center bg-light border-bottom osahan-post-header">
+                            <div class="font-weight-bold mr-3">
+                                <div class="text-truncate">Your application sent to <%= noti[i].reg_target_name %> had an update </div>
+                                <div class="small"></div>
+                            </div>
+                            <span class="ml-auto mb-auto">
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-light btn-sm rounded" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <i class="mdi mdi-dots-vertical"></i>
+                                    </button>
+                                    <div class="dropdown-menu dropdown-menu-right">
+                                        <button class="dropdown-item open-applDialog" type="button" data-id="123" data-toggle="modal" data-target="#exampleModal"><i class="mdi mdi-eye"></i> Details </button>
+                                        <a href="/ads/adDetails/<%= noti[i].reg_ads %>" class="btn dropdown-item"><i class="mdi mdi-read"></i> Go to Ads Page</a>
+                                        <button class="dropdown-item" type="button"><i class="mdi mdi-close"></i> Mark as Read</button>
+                                    </div>
+                                </div>
+                                <br />
+                                <div class="text-right text-muted pt-1"><%= noti[i].createdAt %></div>
+                            </span>
+                        </div>
+                    <% }; %>
+                <% }; %>
+            </div>
+            <div class="p-3 d-flex align-items-center osahan-post-header">
+                <div class="font-weight-bold mr-3">
+                    <div class="mb-2">Template</div>
+                    <button type="button" class="btn btn-outline-success" data-toggle="modal" data-target="#exampleModal">
+                        Launch demo modal
+                    </button>
+                </div>
+                <span class="ml-auto mb-auto">
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-light btn-sm rounded" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="mdi mdi-dots-vertical"></i>
+                        </button>
+                        <div class="dropdown-menu dropdown-menu-right">
+                            <button class="dropdown-item" type="button"><i class="mdi mdi-delete"></i> Delete</button>
+                            <button class="dropdown-item" type="button"><i class="mdi mdi-close"></i> Turn Off</button>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="text-right text-muted pt-1">4d</div>
+                </span>
+            </div>
+
+        </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                ...
+                <input type="text" name="notiId" id="notiId" value=""/>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
     </div>
-    
-</body>
+</div>
+
+<script>
+    $(document).on("click", ".open-applDialog", function () {
+        var msgId = $(this).data('id');
+        $(".modal-body #notiId").val( msgId );
+});
+</script>
 
 

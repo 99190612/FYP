@@ -21,11 +21,19 @@ module.exports = {
       type: 'string',
     },
 
+    reg_user_name:{
+      type: 'string',
+    },
+
     reg_ads: {
       type: 'string',
     },
 
     reg_target: {
+      type: 'string',
+    },
+
+    reg_target_name:{
       type: 'string',
     },
 

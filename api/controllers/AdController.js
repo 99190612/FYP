@@ -180,7 +180,6 @@ module.exports = {
             var perPage = Math.max(req.query.perPage, 6) || 6;
 
             formData = [req.body.keywords, req.body.adType, req.body.scheduleOptions, req.body.jobType];
-            console.log("passing search results --->>> " + formData);
             var whereClause = {};
 
             if (req.body.title) whereClause.title = { contains: req.body.title };
@@ -200,7 +199,6 @@ module.exports = {
             });
 
             var count = someAds.length;
-            console.log("ad find --> " + count);
             someAds.forEach((item)  =>  item.createdAt = new Date(item.createdAt).toLocaleDateString());
             return res.view("pages/dashboard/searchResult", { ads: someAds, imgs: thoseFile, total: count });
         },
