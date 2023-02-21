@@ -49,7 +49,7 @@ module.exports = {
         .upload({
 
       // You can apply a file upload limit (in bytes)
-            maxBytes: 1000000,
+            maxBytes: 2000000,
             dirname: '../../assets/images/uploads/',
 
     }, async function whenDone(err, uploadedFiles) {
@@ -65,6 +65,7 @@ module.exports = {
     var updatedAd = await Ad.update(ad.id, {
         owner: req.session.userId,
         application_pic: fileUploaded.id,
+        application_pic_url: fileUploaded.url,
     })
     });
         return res.redirect("/ads/adDetails/" + ad.id);
@@ -116,14 +117,8 @@ module.exports = {
                 adType: 'Job',
             },
         });
-        let picArr = [];
-        thoseads.forEach((item) => picArr.push(item.application_pic));
-        var thoseFile = await Files.find({
-            where: picArr,
-            sort: 'id',
-        });
         thoseads.forEach((item)  =>  item.createdAt = new Date(item.createdAt).toLocaleDateString());
-        return res.view("pages/dashboard/viewJob", { ads: thoseads, imgs: thoseFile});
+        return res.view("pages/dashboard/viewJob", { ads: thoseads});
     },
 
     displayCanadidate: async function(req,res){
@@ -132,14 +127,8 @@ module.exports = {
                 adType: 'Availability',
             },
         });
-        let picArr = [];
-        thoseads.forEach((item) => picArr.push(item.application_pic));
-        var thoseFile = await Files.find({
-            where: picArr,
-            sort: 'id',
-        });
         thoseads.forEach((item)  =>  item.createdAt = new Date(item.createdAt).toLocaleDateString());
-        return res.view("pages/dashboard/viewCanadidate", { ads: thoseads, imgs: thoseFile});
+        return res.view("pages/dashboard/viewCanadidate", { ads: thoseads});
     },
 
     search: async function(req, res){
@@ -159,19 +148,13 @@ module.exports = {
                 limit: perPage,
                 skip: perPage * (Math.max(req.query.current - 1, 0) || 0),
             })
-            let picArr = [];
-            someAds.forEach((item) => picArr.push(item.application_pic));
-            var thoseFile = await Files.find({
-                where: picArr,
-                sort: 'id',
-            });
 
             var count = await Ad.count({
                 where: whereClause
             });
 
             someAds.forEach((item)  =>  item.createdAt = new Date(item.createdAt).toLocaleDateString());
-            return res.json({ ads: someAds, imgs: thoseFile, total: count });
+            return res.json({ ads: someAds, total: count });
         }
         return res.view('pages/dashboard/search');
     },

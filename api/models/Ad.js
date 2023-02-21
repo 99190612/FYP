@@ -46,9 +46,6 @@ module.exports = {
       type: "string",
     },
 
-    contact: {
-      type: "number",
-    },
 
     description: {
       type: "string",
@@ -74,6 +71,10 @@ module.exports = {
     },
 
     application_pic: {
+      type: "string",
+    },
+
+    application_pic_url: {
       type: "string",
     },
 

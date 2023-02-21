@@ -48,10 +48,10 @@
                 </div>
                 <div class="row">
                     <div class="col-md-6">
+                        <p id="loading" class="text-center" style="padding: 5em 0em;">Loading Image...</p>
                         <!-- pic -->
                         <img class="col" src="<%= img.url %>" 
                         style="display: none; display: none; width: 100%; height: 25vw; object-fit: cover;padding-bottom: 1em;" onload="this.style.display='';document.getElementById('loading').style.display='none'" onerror="tryAgain(this)"/>
-                        <p id="loading" class="text-center" style="padding: 5em 0em;">Loading Image...</p>
                         <div class="card" style="width: 100%;">
                             <div class="card-body">
                                 <!-- <h5 class="card-title">Time Available</h5> -->

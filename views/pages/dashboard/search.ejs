@@ -3,7 +3,7 @@
     <div class="column is-two-thirds">
         <div class="columns" v-if="haveResult">
             <div class="card col-md-4" v-for="(ad, index) in ads">
-                <img class="card-img-top" :src="imgs[index].url" alt="Card image cap"  
+                <img class="card-img-top" :src="ads[index].application_pic_url" alt="Card image cap"  
                         style="display: none; width: 100%; height: 15vw; object-fit: cover;" onload="this.style.display='';document.getElementById('loading').style.display='none'" onerror="tryAgain(this)"/>
                     <div class="card-body">
                         <div class="card-title">
@@ -85,7 +85,6 @@
         data: {
             total: 0,
             ads: [],
-            imgs: [],
             current: 1,
             perPage: 3,
             rangeBefore: 1,
@@ -120,7 +119,6 @@
                 if (response.ok) {
                     var json = await response.json();
                     this.ads = json.ads;
-                    this.imgs = json.imgs;
                     this.total = parseInt(json.total);
                     console.log(img[1].url);
 
