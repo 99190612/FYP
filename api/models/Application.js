@@ -39,7 +39,7 @@ module.exports = {
 
     applStatus: {
       type: 'string',
-      isIn: ["waiting for reply","scheduling time", "confirmed time", "approved", "rejected"],
+      isIn: ["waiting for reply","scheduling time", "signed", "approved", "rejected"],
     },
 
     notiStatus: {

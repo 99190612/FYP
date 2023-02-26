@@ -1,0 +1,137 @@
+<style>
+    .btn-outline-light.custom-btn {
+        background-color: #ee9153;
+        border-color: #ee9153;
+    }
+</style>
+<section class="h-100 h-custom" style="background-color: #eee;">
+    <div class="container py-5 h-100">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col-lg-8 col-xl-6">
+                <div class="card border-top border-bottom border-3" style="border-color: #f37a27 !important;">
+                    <div class="card-body p-5">
+
+                        <p class="lead fw-bold mb-5" style="color: #f37a27;">Application Details</p>
+
+                        <div class="row">
+                            <div class="col mb-3">
+                                <p class="small text-muted mb-1">Applicant: </p>
+                                <p>
+                                    <%= appl.reg_user_name %>
+                                </p>
+                            </div>
+
+                            <div class="col mb-3">
+                                <p class="small text-muted mb-1">Interviewer: </p>
+                                <p>
+                                    <%= appl.reg_target_name %>
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="mx-n5 px-5 py-4" style="background-color: #f2f2f2;">
+                            <p class="lead fw-bold mb-4 pb-2" style="color: #f37a27;">Interview Timeslot</p>
+                            <p id="rejectText" style="color: #f37a27; display: none;">You had rejected this application.
+                            </p>
+                            <% if(typeof appl.interviewTimeslot !="object" ) { %>
+                                <div class="row my-4">
+                                    <div class="col-md-8 col-lg-9">
+                                        <p>
+                                            <%= appl.interviewTimeslot %>
+                                        </p>
+                                    </div>
+                                    <div class="col-md-4 col-lg-3">
+                                        <button type="button" class="btn btn-outline-light custom-btn" id="accept"
+                                            onclick="actions('<%= appl.id %>', 'approved', '<%= appl.interviewTimeslot %>')">Accept</button>
+                                    </div>
+                                </div>
+                                <% } else { %>
+                                    <% for (let i=0; i < appl.interviewTimeslot.length; i++) { %>
+                                        <div class="row my-4">
+                                            <div class="col-md-8 col-lg-9">
+                                                <p>
+                                                    <%= appl.interviewTimeslot[i] %>
+                                                </p>
+                                            </div>
+                                            <div class="col-md-4 col-lg-3">
+                                                <button type="button" class="btn btn-outline-light custom-btn"
+                                                    id="accept"
+                                                    onclick="actions('<%= appl.id %>', 'approved', '<%= appl.interviewTimeslot[i] %>')">Accept</button>
+                                            </div>
+                                        </div>
+                                        <% }; %>
+                                            <% }; %>
+                        </div>
+
+                        <br>
+                        <p class="lead fw-bold mb-4 pb-2" style="color: #f37a27;">Actions</p>
+
+                        <div>
+                            <div class="row my-4">
+                                <div class="col-md-3">
+                                    <button type="button" class="btn btn-outline-light custom-btn"
+                                        id="rearrange">Rearrange</button>
+                                </div>
+
+                                <div class="col-md-3">
+                                    <button type="button" class="btn btn-outline-light custom-btn" id="reject"
+                                        onclick="actions('<%= appl.id %>', 'rejected', ' ')">Reject</button>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<form id="formData" style="display: none;" class="form-container">
+    <input type="hidden" name="_csrf" id="_csrf" value="<%- _csrf %>" />
+
+</form>
+
+<script>
+    loadPage()
+    function loadPage() {
+        if ("<%- appl.applStatus %>" == "approved") {
+            document.getElementById("accept").innerText = "Accepted";
+            document.getElementById("accept").disabled = true;
+            document.getElementById("reject").disabled = true;
+            document.getElementById("rearrange").disabled = true;
+
+        } else if ("<%- appl.applStatus %>" == "rejected") {
+            document.getElementById("rejectText").style.display = '';
+            document.getElementById("accept").style.display = "none";
+            document.getElementById("reject").disabled = true;
+            document.getElementById("rearrange").disabled = true;
+        } else {
+            alert("<%- appl.applStatus %>", "Did not change the button");
+        }
+    }
+
+    async function actions(applId, action, interviewTimeslot) {
+        var r = confirm("Confirm?");
+
+        if (r) {
+            var row = '<input type="hidden" name="action" value="' + action + '" /> ';
+            $("#formData").append(row);
+            var row2 = '<input type="hidden" name="interviewTimeslot" value="' + interviewTimeslot + '" /> ';
+            $("#formData").append(row2);
+            var form = document.getElementById("formData");
+            var formData = new FormData(form);
+            var response = await fetch("/application/applDetails?id=" + applId, {
+                method: "PUT",
+                body: formData,
+            });
+            console.log(formData);
+            if (response.ok) {
+                alert("Application updated!");
+                location.reload(true);
+            }
+        } else {
+            alert("cancelled");
+        }
+    }
+</script>

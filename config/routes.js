@@ -36,7 +36,8 @@ module.exports.routes = {
 
   'GET /account/notification': 'ApplicationController.notification',
 
-  
+  'GET /application/applDetails': 'ApplicationController.details',
+  'PUT /application/applDetails': 'ApplicationController.details',
 
 
 
