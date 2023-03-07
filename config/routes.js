@@ -39,7 +39,7 @@ module.exports.routes = {
   'GET /application/applDetails': 'ApplicationController.details',
   'PUT /application/applDetails': 'ApplicationController.details',
 
-
+  'GET /account/viewProfile': 'UserController.viewProfile',
 
 
   // ---------------------

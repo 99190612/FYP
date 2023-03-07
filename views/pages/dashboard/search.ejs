@@ -1,21 +1,32 @@
 <link rel="stylesheet" href="https://unpkg.com/buefy/dist/buefy.min.css">
+<style>
+    .a {
+        background-color: #ECF2FF !important;
+    }
+
+    .j {
+        background-color: #F4EEE8 !important;
+    }
+</style>
 <div id="search" class="row">
     <div class="column is-two-thirds">
         <div class="columns" v-if="haveResult">
-            <div class="card col-md-4" v-for="(ad, index) in ads">
-                <img class="card-img-top" :src="ads[index].application_pic_url" alt="Card image cap"  
-                        style="display: none; width: 100%; height: 15vw; object-fit: cover;" onload="this.style.display='';document.getElementById('loading').style.display='none'" onerror="tryAgain(this)"/>
-                    <div class="card-body">
-                        <div class="card-title">
-                            <a :href='"/ads/adDetails/"+ad.id'>
-                                {{ad.title}}</a>
-                        </div>
-                        <br>
-                        <p class="card-text">{{ad.jobType}}</p>
-                        <p class="card-text" >{{ad.adType}} (for testing ONLY)</p>
-                        <time class="card-text">{{ad.createdAt}}</time>
-                        <br><br>
+            <div class="card col-md-4" v-for="(ad, index) in ads" v-bind:class="getColor(ad.adType)">
+                <img class="card-img-top" :src="ads[index].application_pic_url" alt="Card image cap"
+                    style="display: none; width: 100%; height: 15vw; object-fit: cover;"
+                    onload="this.style.display='';document.getElementById('loading').style.display='none'"
+                    onerror="tryAgain(this)" />
+                <div class="card-body">
+                    <div class="card-title">
+                        <a :href='"/ads/adDetails/"+ad.id'>
+                            {{ad.title}}</a>
                     </div>
+                    <br>
+                    <p class="card-text">{{ad.jobType}}</p>
+                    <p class="card-text">{{ad.adType}} (for testing ONLY)</p>
+                    <time class="card-text">{{ad.createdAt}}</time>
+                    <br><br>
+                </div>
 
                 </a>
             </div>
@@ -29,7 +40,7 @@
             :icon-prev="prevIcon" :icon-next="nextIcon" aria-next-label="Next page" aria-previous-label="Previous page"
             aria-page-label="Page" aria-current-label="Current page" @change="fetchData()" v-if="haveResult">
         </b-pagination>
-        
+
         <div class="columns is-centered" v-if="!haveResult">
             <div class="column is-half" style="text-align: center;">
                 <br>
@@ -103,13 +114,18 @@
 
             jobTypes: ["HouseKeeper", "Medical Care", "Elderly Care", "Child Care", "Personal Care"],
             adTypes: ["Job", "Availability"],
-            schedule_options: ["one-off", "regular"]
+            schedule_options: ["one-off", "regular"],
+            color: {
+                "Availability": 'a',
+                "Job": 'j',
+            }
+
         },
         mounted: function () {
             this.fetchData();
         },
         computed: {
-            haveResult: function() { return this.total > 0 }
+            haveResult: function () { return this.total > 0 }
         },
         methods: {
             fetchData: async function () {
@@ -125,19 +141,22 @@
                 } else {
                     alert(response.statusText);
                 }
+            },
+
+            getColor(adTypes) {
+
+                return this.color[adTypes]
             }
         },
     })
 </script>
 <script>
-    function tryAgain(e) 
-    {
-    setTimeout(reloadImg, 1000, e);
+    function tryAgain(e) {
+        setTimeout(reloadImg, 1000, e);
     }
 
-    function reloadImg(e)
-    {
-    var source = e.src;
-    e.src = source;
+    function reloadImg(e) {
+        var source = e.src;
+        e.src = source;
     }
 </script>

@@ -44,4 +44,8 @@ module.exports = {
             if (!thatUser) return res.notFound();
         return res.view("pages/account/profile", { user: thatUser});
     },
+
+    viewProfile: async function (req, res) {
+        return res.view("pages/account/viewProfile");
+    }
 };

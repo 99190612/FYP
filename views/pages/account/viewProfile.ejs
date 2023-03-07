@@ -1,0 +1,209 @@
+<script src="https://kit.fontawesome.com/a24879a822.js" crossorigin="anonymous"></script>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: 'Montserrat', sans-serif;
+        list-style: none;
+
+    }
+
+    body {
+        background: #e4e9ef;
+        color: #555555;
+    }
+
+    .wrapper {
+        width: 650px;
+        height: auto;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        display: flex;
+    }
+
+    .wrapper .profile {
+        width: 400px;
+        margin-right: 25px;
+    }
+
+    .wrapper .profile .profile_img_info {
+        display: flex;
+        background: #fff;
+        border-radius: 10px;
+        margin-bottom: 25px;
+    }
+
+    .wrapper .profile .profile_img_info .img {
+        width: 125px;
+    }
+
+    .wrapper .profile .profile_img_info .img img {
+        width: 100%;
+        display: block;
+        border-top-left-radius: 10px;
+        border-bottom-left-radius: 10px;
+    }
+
+    .wrapper .profile .profile_img_info .info {
+        width: calc(100% - 125px);
+        padding: 40px;
+    }
+
+    .wrapper .profile .profile_img_info .info .name {
+        font-size: 24px;
+        font-weight: 700;
+        margin-bottom: 5px;
+    }
+
+    .wrapper .profile .profile_img_info .place {
+        font-weight: 300;
+    }
+
+    .wrapper .profile .profile_skills {
+        background: #fff;
+        border-radius: 10px;
+        padding: 25px;
+    }
+
+    .wrapper .profile .profile_skills .skills {
+        padding-bottom: 20px;
+        border-bottom: 1px solid #cccccc;
+    }
+
+    .wrapper .profile .profile_skills .skills p {
+        text-transform: uppercase;
+        font-weight: 700;
+        font-size: 14px;
+        margin-bottom: 10px;
+    }
+
+    .wrapper .profile .profile_skills .skills ul li {
+        font-size: 15px;
+        margin-bottom: 5px;
+    }
+
+    .wrapper .profile .profile_skills .skills ul li .fab {
+        width: 40px;
+    }
+
+    .wrapper .profile .profile_skills .tags_wrap {
+        padding-top: 20px;
+    }
+
+    .wrapper .profile .profile_skills .tags_wrap span.tag {
+        background: #e4e9ef;
+        padding: 10px 15px;
+        display: inline-block;
+        border-radius: 10px;
+        margin: 5px;
+        font-size: 14px;
+    }
+
+    .wrapper .profile_counts {
+        background: #fff;
+        border-radius: 10px;
+        padding: 25px;
+        width: 175px;
+    }
+
+    .wrapper .profile_counts .profile_counts_wrap {
+        padding: 30px 0;
+        border-bottom: 1px solid #cccccc;
+    }
+
+    .wrapper .profile_counts .profile_counts_wrap:first-child {
+        padding-top: 0;
+    }
+
+    .wrapper .profile_counts .profile_counts_wrap:last-child {
+        padding-bottom: 0px;
+        border-bottom: 0px;
+    }
+
+    .wrapper .profile_counts .profile_counts_wrap .item {
+        padding: 20px 10px;
+        text-align: center;
+        border-radius: 10px;
+        cursor: pointer;
+        transition: all .2s ease;
+    }
+
+    .wrapper .profile_counts .profile_counts_wrap .item:hover {
+        background: #e4e9ef;
+    }
+
+    .wrapper .profile_counts .profile_counts_wrap .item .fas {
+        font-size: 30px;
+        margin-bottom: 20px;
+    }
+
+    .wrapper .profile_counts .profile_counts_wrap .item .title {
+        font-size: 14px;
+    }
+</style>
+<div class="wrapper">
+    <div class="profile">
+        <div class="profile_img_info">
+            <div class="img">
+                <img src="https://images.unsplash.com/photo-1509259305526-037fbbf698fa?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTB8fGF1c3RyYWxpYXxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=400&q=60"
+                    alt="profile_pic">
+            </div>
+            <div class="info">
+                <p class="name">Aditya Gaikwad</p>
+                <p class="place"><span><i class="fas fa-map-marker-alt"></i></span>
+                    Central
+                </p>
+            </div>
+        </div>
+        <div class="profile_skills">
+            <div class="skills">
+                <p>Personal Data</p>
+                <ul>
+                    <li>Gender: Female
+                    </li>
+                    <li>Age: 30
+                    </li>
+                    <li>Contact: 98478329 by WhatsApp Only
+                    </li>
+                </ul>
+            </div>
+            <div class="profile_skills">
+                <div class="skills">
+                    <p>Description</p>
+                    <ul>
+                        <li> Seeking a reliable and experienced housekeeper.
+                        </li>
+                        <br>
+                        <li>
+                            <i class="fas fa-info-circle"></i> Hiring caretakers for over 5 years and work with multiple
+                            caregivers
+                        </li>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="profile_counts">
+        <div class="profile_counts_wrap">
+            <div class="item">
+                <div class="icon"><i class="fas fa-thumbs-up"></i> 4.3 / 5</div>
+                <div class="title">20 Feedbacks</div>
+            </div>
+        </div>
+        <div class="profile_counts_wrap">
+            <div class="item">
+                <div class="icon"><i class="fas fa-comment"></i></div>
+                <div class="title">17 Comments</div>
+            </div>
+        </div>
+        <div class="profile_counts_wrap">
+            <div class="item">
+                <div class="icon"><i class="fas fa-ballot-check"></i></div>
+                <div class="title">30 Finished Appointment</div>
+            </div>
+        </div>
+    </div>
+
+</div>
