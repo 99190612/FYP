@@ -17,17 +17,31 @@
 
                         <div class="row">
                             <div class="col mb-3">
-                                <p class="small text-muted mb-1">Applicant: </p>
-                                <p>
-                                    <%= appl.reg_user_name %>
-                                </p>
+                                <% if(appl.relatedExp){ %>
+                                    <p class="small text-muted mb-1">Care Seeker: </p>
+                                    <p>
+                                        <%= appl.reg_target_name %>
+                                    </p>
                             </div>
 
                             <div class="col mb-3">
-                                <p class="small text-muted mb-1">Interviewer: </p>
+                                <p class="small text-muted mb-1">Care Provider: </p>
+                                <p>
+                                    <%= appl.reg_user_name %>
+                                </p>
+                                <% } else { %>
+                                    <p class="small text-muted mb-1">Care Seeker: </p>
+                                    <p>
+                                        <%= appl.reg_user_name %>
+                                    </p>
+                            </div>
+
+                            <div class="col mb-3">
+                                <p class="small text-muted mb-1">Care Provider: </p>
                                 <p>
                                     <%= appl.reg_target_name %>
                                 </p>
+                                <% } %>
                             </div>
                         </div>
 
@@ -66,7 +80,13 @@
                         </div>
 
                         <br>
-                        <p class="lead fw-bold mb-4 pb-2" style="color: #f37a27;">Actions</p>
+                        <p id="actionTitle" class="lead fw-bold mb-4 pb-2" style="color: #f37a27;">Actions</p>
+                        <div id="applStatus">
+                            <p class="lead fw-bold mb-4 pb-2" style="color: #f37a27;">Application Status</p>
+                            <button class="btn btn-outline-light custom-btn">
+                                <%= appl.applStatus %>
+                            </button>
+                        </div>
 
                         <div>
                             <div class="row my-4">
@@ -108,8 +128,15 @@
             document.getElementById("accept").style.display = "none";
             document.getElementById("reject").disabled = true;
             document.getElementById("rearrange").disabled = true;
-        } else {
-            alert("<%- appl.applStatus %>", "Did not change the button");
+        }
+
+        if ("<%- appl.reg_user %>" == "<%- req.session.userId %>") {
+            // alert("<%- appl.applStatus %>", "Did not change the button");
+            document.getElementById("applStatus").style.display = "";
+            document.getElementById("actionTitle").style.display = "none";
+            document.getElementById("accept").style.display = "none";
+            document.getElementById("reject").style.display = "none";
+            document.getElementById("rearrange").style.display = "none";
         }
     }
 

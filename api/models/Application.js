@@ -17,6 +17,10 @@ module.exports = {
       columnType: 'array',
     },
 
+    relatedExp:{
+      type: 'string',
+    },
+
     reg_user: {
       type: 'string',
     },

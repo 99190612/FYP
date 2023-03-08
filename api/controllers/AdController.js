@@ -102,10 +102,10 @@ module.exports = {
     },
     
     show: async function(req,res){
+        var whereClause = {};
+        whereClause.owner = req.session.userId;
         var thoseads = await Ad.find({
-            where: {
-                owner: req.session.userId,
-            },
+            where: whereClause,
         });
         thoseads.forEach((item)  =>  item.updatedAt = new Date(item.updatedAt).toLocaleString());
         return res.view("pages/dashboard/allApplication", { ads: thoseads });
@@ -158,33 +158,6 @@ module.exports = {
         }
         return res.view('pages/dashboard/search');
     },
-
-    searchResult: async function(req, res){
-            var perPage = Math.max(req.query.perPage, 6) || 6;
-
-            formData = [req.body.keywords, req.body.adType, req.body.scheduleOptions, req.body.jobType];
-            var whereClause = {};
-
-            if (req.body.title) whereClause.title = { contains: req.body.title };
-            if (req.body.adType) whereClause.adType = req.body.adType;
-            if (req.body.scheduleOptions) whereClause.scheduleOptions = req.body.scheduleOptions;
-            if (req.body.jobType) whereClause.jobType = req.body.jobType;
-
-            var someAds = await Ad.find({
-                where: whereClause,
-            });
-
-            let picArr = [];
-            someAds.forEach((item) => picArr.push(item.application_pic));
-            var thoseFile = await Files.find({
-                where: picArr,
-                sort: 'id',
-            });
-
-            var count = someAds.length;
-            someAds.forEach((item)  =>  item.createdAt = new Date(item.createdAt).toLocaleDateString());
-            return res.view("pages/dashboard/searchResult", { ads: someAds, imgs: thoseFile, total: count });
-        },
         
 
     question: async function(req, res){

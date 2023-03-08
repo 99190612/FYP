@@ -26,6 +26,7 @@ module.exports = {
 
             var thatApplication = await Application.create({
                 interviewTimeslot: req.body.interviewTimeslot,
+                relatedExp: req.body.relatedExp,
                 reg_user: req.session.userId,
                 reg_user_name: user.fullName,
                 reg_ads: req.params.fk,
