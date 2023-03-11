@@ -5,22 +5,78 @@
             <tr>
                 <th title="id">ID</th>
                 <th title="title">Title</th>
-                <th title="adType">AD Type</th>
-                <th title="adStatus">Application Status</th>
+                <th title="adType">Type</th>
                 <th title="lastUpdate">Last Updated</th>
-                <th title="link">Ad Details</th>
+                <th title="link">Details</th>
             </tr>
         </thead>
-    <% ads.forEach( function(ad) { %>
-    <tr>
-        <td><%= ad.id %></td>
-        <td><%= ad.title %></td>
-        <td><%= ad.adType %></td>
-        <td><a href="#" class="btn btn-secondary"><%= ad.adStatus %></a></td>
-        <td><%= ad.updatedAt %></td>
-        <td><a href="/ads/adDetails/<%= ad.id %>" class="btn btn-info">Details</a></td>
-    </tr>
+        <% ads.forEach( function(ad) { %>
+            <tr>
+                <td>
+                    <%= ad.id %>
+                </td>
+                <td>
+                    <%= ad.title %>
+                </td>
+                <td>
+                    <%= ad.adType %>
+                </td>
+                <td>
+                    <%= ad.updatedAt %>
+                </td>
+                <td><a href="/ads/adDetails/<%= ad.id %>" class="btn btn-outline-dark">Details</a></td>
+            </tr>
 
-    <% }); %>
+            <% }); %>
+
+                <% regAppl.forEach( function(appl) { %>
+                    <tr>
+                        <td>
+                            <%= appl.id %>
+                        </td>
+                        <td>
+                            Application sent to <%= appl.reg_target_name %>
+                        </td>
+                        <td>
+                            <% if(appl.relatedExp){ %>
+                                Apply for Job
+                                <% } else { %>
+                                    Finding care
+                                    <% }; %>
+                        </td>
+                        <td>
+                            <%= appl.updatedAt %>
+                        </td>
+                        <td><a href="/application/applDetails?id=<%= appl.id %>"
+                                class="btn btn-outline-dark">Details</a>
+                        </td>
+                    </tr>
+
+                    <% }); %>
+
+                        <% receivedAppl.forEach( function(appl) { %>
+                            <tr>
+                                <td>
+                                    <%= appl.id %>
+                                </td>
+                                <td>
+                                    Application received from <%= appl.reg_user_name %>
+                                </td>
+                                <td>
+                                    <% if(appl.relatedExp){ %>
+                                        Apply for Job
+                                        <% } else { %>
+                                            Finding care
+                                            <% }; %>
+                                </td>
+                                <td>
+                                    <%= appl.updatedAt %>
+                                </td>
+                                <td><a href="/application/applDetails?id=<%= appl.id %>"
+                                        class="btn btn-outline-dark">Details</a>
+                                </td>
+                            </tr>
+
+                            <% }); %>
     </table>
 </div>

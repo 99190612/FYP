@@ -62,23 +62,36 @@
                                             id="accept"
                                             onclick="actions('<%= appl.id %>', 'approved', '<%= appl.interviewTimeslot %>')">Accept</button>
                                     </div>
+
                                 </div>
-                                <% } else { %>
-                                    <% for (let i=0; i < appl.interviewTimeslot.length; i++) { %>
-                                        <div class="row my-4">
-                                            <div class="col-md-8 col-lg-9">
-                                                <p>
-                                                    <%= appl.interviewTimeslot[i] %>
-                                                </p>
-                                            </div>
-                                            <div class="col-md-4 col-lg-3">
-                                                <button type="button"
-                                                    class="accept-btn btn btn-outline-light custom-btn" id="accept"
-                                                    onclick="actions('<%= appl.id %>', 'approved', '<%= appl.interviewTimeslot[i] %>')">Accept</button>
-                                            </div>
+                                <% if(appl.applStatus=="approved" ){ %>
+                                    <div class="row my-4">
+                                        <div class="col-md-8 col-lg-9">
+                                            <p id="acceptText" style="color: #f37a27;">This Application
+                                                is
+                                                waiting for interview
+                                            </p>
                                         </div>
-                                        <% }; %>
-                                            <% }; %>
+                                    </div>
+                                    <% }; %>
+
+                                        <% } else { %>
+                                            <% for (let i=0; i < appl.interviewTimeslot.length; i++) { %>
+                                                <div class="row my-4">
+                                                    <div class="col-md-8 col-lg-9">
+                                                        <p>
+                                                            <%= appl.interviewTimeslot[i] %>
+                                                        </p>
+                                                    </div>
+                                                    <div class="col-md-4 col-lg-3">
+                                                        <button type="button"
+                                                            class="accept-btn btn btn-outline-light custom-btn"
+                                                            id="accept"
+                                                            onclick="actions('<%= appl.id %>', 'approved', '<%= appl.interviewTimeslot[i] %>')">Accept</button>
+                                                    </div>
+                                                </div>
+                                                <% }; %>
+                                                    <% }; %>
                         </div>
                         <br>
                         <% if(appl.relatedExp){ %>
@@ -118,19 +131,19 @@
 
                                             <div class="col-md-3" style="padding: 0 2rem;">
                                                 <button type="button" class="btn btn-outline-light custom-btn"
-                                                    id="rejectAppl"
-                                                    onclick="actions('<%= appl.id %>', 'reject application', ' ')"
+                                                    id="acceptAppl"
+                                                    onclick="actions('<%= appl.id %>', 'accept application', ' ')"
                                                     data-toggle="tooltip" data-placement="top"
-                                                    title="Once reject, the whole application will be withdraw">Reject
+                                                    title="Confirm this Application">Accept
                                                     Application</button>
                                             </div>
 
                                             <div class="col-md-3" style="padding: 0 3rem;">
                                                 <button type="button" class="btn btn-outline-light custom-btn"
-                                                    id="acceptAppl"
-                                                    onclick="actions('<%= appl.id %>', 'accept application', ' ')"
+                                                    id="rejectAppl"
+                                                    onclick="actions('<%= appl.id %>', 'reject application', ' ')"
                                                     data-toggle="tooltip" data-placement="top"
-                                                    title="Confirm this Application">Accept
+                                                    title="Once reject, the whole application will be withdraw">Reject
                                                     Application</button>
                                             </div>
                                         </div>
@@ -251,8 +264,7 @@
 
     function loadPage() {
         if ("<%- appl.applStatus %>" == "approved") {
-            document.getElementById("accept").innerText = "Accepted";
-            document.getElementById("accept").disabled = true;
+            document.getElementById("accept").style.display = "none";
             document.getElementById("reject").style.display = "none";
             document.getElementById("rearrange").style.display = "none";
 

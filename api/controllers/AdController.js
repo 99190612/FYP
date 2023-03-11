@@ -95,7 +95,6 @@ module.exports = {
         
             let idArr = [];
             ad.reg_user.forEach((item) => idArr.push(item.id));
-            console.log("regUser Array return: -----> " + idArr)
 
             return res.view("pages/ads/adDetails", { ad: thatAd, img: thatFile, user: thatUser, regUser: idArr});
         }
@@ -106,9 +105,16 @@ module.exports = {
         whereClause.owner = req.session.userId;
         var thoseads = await Ad.find({
             where: whereClause,
+            sort: [{ 'updatedAt': 'ASC' }]
         });
+        var regAppl = await Application.find({reg_user: req.session.userId})
+        regAppl.sort((a,b) => b.updatedAt - a.updatedAt);
+        var receivedAppl = await Application.find({reg_target: req.session.userId})
+        receivedAppl.sort((a,b) => b.updatedAt - a.updatedAt);
         thoseads.forEach((item)  =>  item.updatedAt = new Date(item.updatedAt).toLocaleString());
-        return res.view("pages/dashboard/allApplication", { ads: thoseads });
+        regAppl.forEach((item)  =>  item.updatedAt = new Date(item.updatedAt).toLocaleString());
+        receivedAppl.forEach((item)  =>  item.updatedAt = new Date(item.updatedAt).toLocaleString());
+        return res.view("pages/dashboard/allApplication", { ads: thoseads, regAppl: regAppl, receivedAppl: receivedAppl});
     },
 
     displayJob: async function(req,res){
@@ -157,12 +163,6 @@ module.exports = {
             return res.json({ ads: someAds, total: count });
         }
         return res.view('pages/dashboard/search');
-    },
-        
-
-    question: async function(req, res){
-        if (req.method == "GET") return res.view("pages/dashboard/question");
-        return res.json(req.allParams());
     },
 
 };
