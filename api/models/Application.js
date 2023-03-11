@@ -43,13 +43,11 @@ module.exports = {
 
     applStatus: {
       type: 'string',
-      isIn: ["waiting for reply","scheduling time", "signed", "approved", "rejected"],
+      isIn: ["waiting for reply","rearranging", "approved", "rejected", "reject application", "accept application", "finished"],
     },
 
-    notiStatus: {
+    reject_msg: {
       type: 'string',
-      isIn: ["read", "new"],
-      defaultsTo: 'new',
     },
 
     //  ╔═╗╔╦╗╔╗ ╔═╗╔╦╗╔═╗

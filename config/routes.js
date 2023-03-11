@@ -38,8 +38,10 @@ module.exports.routes = {
 
   'GET /application/applDetails': 'ApplicationController.details',
   'PUT /application/applDetails': 'ApplicationController.details',
+  'POST /application/applDetails': 'ApplicationController.details',
 
   'GET /account/viewProfile': 'UserController.viewProfile',
+  'GET /account/viewComments': 'UserController.viewComments',
 
 
   // ---------------------

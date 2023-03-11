@@ -12,11 +12,8 @@ module.exports = {
         var applyNoti = await Application.find({reg_target: req.session.userId});
         var thosenoti = repliedNoti.concat(applyNoti);
 
-
-        // let checkArr = [];  #for checking
-        // thosenoti.forEach((item) => checkArr.push(item.id));
-        // console.log("Notification found: " + checkArr)
-        thosenoti.forEach((item)  =>  item.createdAt = new Date(item.createdAt).toLocaleDateString());
+        thosenoti.sort((a,b) => b.updatedAt - a.updatedAt);
+        thosenoti.forEach((item)  =>  item.updatedAt = new Date(item.updatedAt).toLocaleDateString());
     return res.view("pages/account/notification", {noti: thosenoti});
     },
 
@@ -26,16 +23,29 @@ module.exports = {
         return res.view("pages/application/applDetails", {appl: thatAppl})
     }
     if (req.method == "PUT") {
-        var updatedAppl = await Application.updateOne(req.query.id).set({
-            applStatus: req.body.action,
-            interviewTimeslot: req.body.interviewTimeslot,
-            notiStatus: "read",
-        });
-        if (!updatedAppl) return res.notFound();
-    return res.ok()
+        if(req.body.action == "rearranging"){
+            console.log("rearranging func entered")
+            var updatedAppl = await Application.updateOne(req.query.id).set({
+                applStatus: req.body.action,
+                interviewTimeslot: req.body.interviewTimeslot,
+            });
+            if (!updatedAppl) return res.notFound();
+        return res.ok()
+        }else{
+            var updatedAppl = await Application.updateOne(req.query.id).set({
+                applStatus: req.body.action,
+                interviewTimeslot: req.body.interviewTimeslot,
+            });
+            if (!updatedAppl) return res.notFound();
+        return res.ok()
+        }
+        
     }
-
-
+    var updatedAppl = await Application.updateOne(req.query.id).set({
+        reject_msg: req.body.reject_msg,
+    })
+    if (!updatedAppl) return res.notFound();
+    return res.ok()
 
     },
 

@@ -48,5 +48,9 @@ module.exports = {
 
     viewProfile: async function (req, res) {
         return res.view("pages/account/viewProfile");
-    }
+    },
+
+    viewComments: async function (req, res) {
+        return res.view("pages/account/viewComments");
+    },
 };
