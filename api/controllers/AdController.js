@@ -42,7 +42,10 @@ module.exports = {
     },
 
     postAvailability: async function(req, res){
-        if (req.method == "GET") return res.view('pages/ads/postAvailability');
+        if (req.method == "GET"){
+            var thatUser = await User.findOne(req.session.userId);
+            return res.view('pages/ads/postAvailability', {user: thatUser});
+        }
         var ad = await Ad.create(req.allParams()).fetch();
         res.setTimeout(0);
         req.file('img')
@@ -50,7 +53,7 @@ module.exports = {
 
       // You can apply a file upload limit (in bytes)
             maxBytes: 2000000,
-            dirname: '../../assets/images/uploads/',
+            dirname: '../../assets/images/userIcon/',
 
     }, async function whenDone(err, uploadedFiles) {
     if (err) return res.serverError(err);  
@@ -66,6 +69,10 @@ module.exports = {
         owner: req.session.userId,
         application_pic: fileUploaded.id,
         application_pic_url: fileUploaded.url,
+    })
+
+    var updatedUser = await User.update(req.session.userId, {
+        user_icon: fileUploaded.url,
     })
     });
         return res.redirect("/ads/adDetails/" + ad.id);
@@ -123,7 +130,7 @@ module.exports = {
                 adType: 'Job',
             },
         });
-        thoseads.forEach((item)  =>  item.createdAt = new Date(item.createdAt).toLocaleDateString());
+        thoseads.forEach((item)  =>  item.createdAt = new Date(item.createdAt).toLocaleDateString("en-GB"));
         return res.view("pages/dashboard/viewJob", { ads: thoseads});
     },
 
@@ -133,7 +140,7 @@ module.exports = {
                 adType: 'Availability',
             },
         });
-        thoseads.forEach((item)  =>  item.createdAt = new Date(item.createdAt).toLocaleDateString());
+        thoseads.forEach((item)  =>  item.createdAt = new Date(item.createdAt).toLocaleDateString("en-GB"));
         return res.view("pages/dashboard/viewCanadidate", { ads: thoseads});
     },
 
@@ -159,7 +166,7 @@ module.exports = {
                 where: whereClause
             });
 
-            someAds.forEach((item)  =>  item.createdAt = new Date(item.createdAt).toLocaleDateString());
+            someAds.forEach((item)  =>  item.createdAt = new Date(item.createdAt).toLocaleDateString("en-GB"));
             return res.json({ ads: someAds, total: count });
         }
         return res.view('pages/dashboard/search');

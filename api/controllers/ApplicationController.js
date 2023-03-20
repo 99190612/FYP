@@ -13,7 +13,7 @@ module.exports = {
         var thosenoti = repliedNoti.concat(applyNoti);
 
         thosenoti.sort((a,b) => b.updatedAt - a.updatedAt);
-        thosenoti.forEach((item)  =>  item.updatedAt = new Date(item.updatedAt).toLocaleDateString());
+        thosenoti.forEach((item)  =>  item.updatedAt = new Date(item.updatedAt).toLocaleDateString("en-GB"));
     return res.view("pages/account/notification", {noti: thosenoti});
     },
 
@@ -47,6 +47,10 @@ module.exports = {
     if (!updatedAppl) return res.notFound();
     return res.ok()
 
+    },
+
+    chat: async function(req, res){
+        if (req.method == "GET") return res.view("pages/application/chatRoom"); 
     },
 
 };

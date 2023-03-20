@@ -44,6 +44,8 @@ module.exports.routes = {
   'GET /account/viewComments': 'UserController.viewComments',
 
 
+  'GET /application/chatRoom': 'ApplicationController.chat',
+
   // ---------------------
 
   'GET /faq':                { action:   'view-faq' },

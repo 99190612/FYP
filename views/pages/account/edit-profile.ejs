@@ -2,20 +2,25 @@
   <account-notification-banner></account-notification-banner>
   <div class="container pt-5 pb-5">
     <h1>Update personal info</h1>
-    <hr/>
-    <ajax-form action="updateProfile" :syncing.sync="syncing" :cloud-error.sync="cloudError" :form-data="formData" :form-rules="formRules" :form-errors.sync="formErrors" @submitted="submittedForm()">
+    <hr />
+    <ajax-form action="updateProfile" :syncing.sync="syncing" :cloud-error.sync="cloudError" :form-data="formData"
+      :form-rules="formRules" :form-errors.sync="formErrors" @submitted="submittedForm()">
       <div class="row">
         <div class="col-sm-6">
           <div class="form-group">
             <label for="full-name">Full name</label>
-            <input class="form-control" id="full-name" name="full-name" type="text"  :class="[formErrors.fullName ? 'is-invalid' : '']" v-model.trim="formData.fullName" placeholder="Sturgis P. Sturgeon" autocomplete="name" focus-first>
+            <input class="form-control" id="full-name" name="full-name" type="text"
+              :class="[formErrors.fullName ? 'is-invalid' : '']" v-model.trim="formData.fullName"
+              placeholder="Sturgis P. Sturgeon" autocomplete="name" focus-first>
             <div class="invalid-feedback" v-if="formErrors.fullName">Please enter your full name.</div>
           </div>
         </div>
         <div class="col-sm-6">
           <div class="form-group">
             <label for="email-address">Email address</label>
-            <input class="form-control" id="email-address" name="email-address" type="email"  :class="[formErrors.emailAddress ? 'is-invalid' : '']" v-model.trim="formData.emailAddress" placeholder="sturgeon@example.com" autocomplete="email">
+            <input class="form-control" id="email-address" name="email-address" type="email"
+              :class="[formErrors.emailAddress ? 'is-invalid' : '']" v-model.trim="formData.emailAddress"
+              placeholder="sturgeon@example.com" autocomplete="email">
             <div class="invalid-feedback" v-if="formErrors.emailAddress">Please enter a valid email address.</div>
           </div>
         </div>
@@ -28,14 +33,15 @@
               <option id="Empty" value="Empty">Empty</option>
               <option id="F" value="F">F</option>
               <option id="M" value="M">M</option>
-          </select>
+            </select>
           </div>
         </div>
 
         <div class="col-sm-6">
           <div class="form-group">
             <label for="age">Age</label>
-            <input class="form-control" id="age" name="age" type="number" v-model.trim="formData.age" placeholder="Numbers only" min="18" max="100">
+            <input class="form-control" id="age" name="age" type="number" v-model.trim="formData.age"
+              placeholder="Numbers only" min="18" max="100">
             <div class="invalid-feedback">Please enter a vaild number.</div>
           </div>
         </div>
@@ -45,15 +51,34 @@
         <div class="col-sm-6">
           <div class="form-group">
             <label for="phone">Phone</label>
-            <input class="form-control" id="phone" name="phone" type="number" v-model.trim="formData.phone" placeholder="Enter a phone number for contact..">
+            <input class="form-control" id="phone" name="phone" type="number" v-model.trim="formData.phone"
+              placeholder="Enter a phone number for contact..">
             <div class="invalid-feedback">Please enter a vaild number.</div>
           </div>
         </div>
 
         <div class="col-sm-6">
           <div class="form-group">
-            <label for="shortDesc">Short Description</label>
-            <input class="form-control" id="shortDesc" name="shortDesc" type="text" v-model.trim="formData.shortDesc" placeholder="Short Introduction">
+            <label for="shortDesc">Living District</label>
+            <select class="form-control" id="livingArea" name="livingArea" v-model.trim="formData.livingArea">
+              <option id="Empty" value="Empty">Empty</option>
+              <option value="Central">Central</option>
+              <option value="Cheung Chau">Cheung Chau</option>
+              <option value="Kowloon City">Kowloon City</option>
+              <option value="Kwai Tsing">Kwai Tsing</option>
+              <option value="Kwun Tong">Kwun Tong</option>
+              <option value="Lantau Island">Lantau Island</option>
+              <option value="Sai Kung">Sai Kung</option>
+              <option value="Sham Shui Po">Sham Shui Po</option>
+              <option value="Sha Tin">Sha Tin</option>
+              <option value="Tai Po">Tai Po</option>
+              <option value="Tsuen Wan">Tsuen Wan</option>
+              <option value="Tuen Mun">Tuen Mun</option>
+              <option value="Wan Chai">Wan Chai</option>
+              <option value="Wong Tai Sin">Wong Tai Sin</option>
+              <option value="Yau Tsim Mong">Yau Tsim Mong</option>
+              <option value="Yuen Long">Yuen Long</option>
+            </select>
           </div>
         </div>
       </div>
@@ -62,7 +87,16 @@
         <div class="col-sm-6">
           <div class="form-group">
             <label for="pastExperience">Past Experience</label>
-            <input class="form-control" id="pastExperience" name="pastExperience" type="text" v-model.trim="formData.pastExperience" placeholder="Any Experience you would like to include">
+            <input class="form-control" id="pastExperience" name="pastExperience" type="text"
+              v-model.trim="formData.pastExperience" placeholder="Any Experience you would like to include">
+          </div>
+        </div>
+
+        <div class="col-sm-6">
+          <div class="form-group">
+            <label for="shortDesc">Short Description</label>
+            <input class="form-control" id="shortDesc" name="shortDesc" type="text" v-model.trim="formData.shortDesc"
+              placeholder="Short Introduction">
           </div>
         </div>
 
@@ -70,7 +104,8 @@
 
       <div class="row">
         <div class="col-sm-6">
-          <cloud-error v-if="cloudError === 'emailAlreadyInUse'">There is already an account using that email address.</cloud-error>
+          <cloud-error v-if="cloudError === 'emailAlreadyInUse'">There is already an account using that email
+            address.</cloud-error>
           <cloud-error v-if="cloudError"></cloud-error>
         </div>
         <div class="col-sm-6">

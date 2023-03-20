@@ -25,6 +25,10 @@ module.exports = {
       type: 'string'
     },
 
+    livingArea:{
+      type: 'string'
+    },
+
     age:{
       type: 'string'
     },
@@ -95,7 +99,7 @@ module.exports = {
     // Start building the values to set in the db.
     // (We always set the fullName if provided.)
     var valuesToSet = {
-      fullName, gender, phone, age, shortDesc, pastExperience
+      fullName, gender, phone, age, shortDesc, pastExperience, livingArea
     };
 
     switch (desiredEmailEffect) {

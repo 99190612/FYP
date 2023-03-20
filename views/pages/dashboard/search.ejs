@@ -131,7 +131,7 @@
             fetchData: async function () {
 
                 var response = await fetch('/search?title=' + this.title + '&adType=' + this.adType + '&scheduleOptions=' + this.scheduleOptions + '&jobType=' + this.jobType + '&perPage=' + this.perPage + '&current=' + this.current);
-
+                console.log(response);
                 if (response.ok) {
                     var json = await response.json();
                     this.ads = json.ads;

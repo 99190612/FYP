@@ -88,7 +88,7 @@
             <a class="nav-item nav-link" href="/search">Search</a>
             <a class="nav-item nav-link" href="/">Ads Approval</a>
           </div>
-          <% } %>
+            <% } %>
         <div class="navbar-nav flex-row">
           <a class="nav-item btn btn-info" href="#"><%= req.me.role %></a>
           <a class="nav-item nav-link ml-2 ml-md-0 mr-2 mr-md-0" href="/contact">Help</a>
@@ -104,9 +104,18 @@
           <!-- Only in mobile nav -->
           <a class="nav-item nav-link ml-2 mr-2 d-block d-sm-none" href="/account">Account Settings</a>
           <a class="nav-item nav-link ml-2 mr-2 d-block d-sm-none" href="/logout">Sign out</a>
-          <% } else { %>
-              <!-- LOGGED-OUT NAVIGATION -->
-          <a class="nav-item nav-link ml-2 ml-md-0 mr-2" style="padding-left: 60em;" href="/faq">FAQ</a>
+          <% } else { %> 
+            <!-- LOGGED-OUT NAVIGATION -->
+              <div class="nav-item dropdown d-none d-sm-block">
+                <a class="nav-link dropdown-toggle" id="header-account-menu-link" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">View</a>
+                <div class="dropdown-menu" aria-labelledby="header-account-menu-link">
+                  <a class="dropdown-item" href="/viewJob">Jobs</a>
+                  <a class="dropdown-item" href="/viewCanadidate">Canadidates</a>
+                </div>
+              </div>
+
+              <a class="nav-item nav-link ml-2 ml-md-0 mr-2" href="/search">Search</a>
+          <a class="nav-item nav-link ml-2 ml-md-0 mr-2" style="padding-left: 65em;" href="/faq">FAQ</a>
           <a class="nav-item nav-link ml-2 ml-md-0 mr-2" href="/login">Log in</a>
           <!-- Only in desktop nav -->
           <div class="form-inline d-none ml-2 d-md-block" >
@@ -115,7 +124,6 @@
           <!-- Only in mobile nav -->
           <a class="nav-item nav-link text-info ml-2 d-block d-md-none" href="/signup">Sign up</a>
             
-          
           <% } %>
         </div>
       </header>

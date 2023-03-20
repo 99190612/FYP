@@ -11,7 +11,11 @@
 module.exports.policies = {
 
   '*': 'is-logged-in',
-  // 'AdController.viewCanadidate': 'is-logged-in',
+  AdController: {
+    displayJob: true,
+    displayCanadidate: true,
+    search: true,
+  },
 
   // Bypass the `is-logged-in` policy for:
   'entrance/*': true,

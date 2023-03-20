@@ -78,6 +78,11 @@ email status until they click the link in the confirmation email.`
       defaultsTo: "empty",
     },
 
+    livingArea:{
+      type: "string",
+      defaultsTo: "empty",
+    },
+
     shortDesc:{
       type: "string",
       defaultsTo: "empty",
@@ -86,6 +91,10 @@ email status until they click the link in the confirmation email.`
     pastExperience:{
       type: "string",
       defaultsTo: "empty",
+    },
+
+    user_icon:{
+      type: "string",
     },
 
     passwordResetToken: {

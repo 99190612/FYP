@@ -19,6 +19,7 @@ parasails.registerPage('edit-profile', {
       emailAddress: {required: true, isEmail: true},
       gender: {required: false},
       phone: {required: false},
+      livingArea: {required: false},
       age: {required: false},
       shortDesc: {required: false},
       pastExperience: {required: false},
@@ -38,6 +39,7 @@ parasails.registerPage('edit-profile', {
     this.formData.emailAddress = this.me.emailChangeCandidate ? this.me.emailChangeCandidate : this.me.emailAddress;
     this.formData.gender = this.me.gender;
     this.formData.phone = this.me.phone;
+    this.formData.livingArea = this.me.livingArea;
     this.formData.age = this.me.age;
     this.formData.shortDesc = this.me.shortDesc;
     this.formData.pastExperience = this.me.pastExperience;
