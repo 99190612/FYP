@@ -266,7 +266,7 @@ module.exports = {
     *                                                                          *
     ***************************************************************************/
     onlyAllowOrigins: [
-      'https://homecare.herokuapp.com/',
+      'https://homecare.herokuapp.com',
       'https://homecare.com',
     ],
 
